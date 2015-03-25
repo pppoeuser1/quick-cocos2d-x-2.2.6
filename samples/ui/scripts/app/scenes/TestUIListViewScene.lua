@@ -200,7 +200,7 @@ function TestUIListViewScene:createListView7()
         :addTo(self)
 
     -- add items
-    for i=1,3 do
+    for i=1,4 do
         local item = self.lvGrid:newItem()
         local content
 
