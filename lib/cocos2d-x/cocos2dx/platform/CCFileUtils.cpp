@@ -510,7 +510,7 @@ unsigned char* CCFileUtils::getFileData(const char* pszFileName, const char* psz
         std::string msg = "Get data from file(";
         msg.append(pszFileName).append(") failed!");
         
-        CCLOG("%s", msg.c_str());
+//        CCLOG("%s", msg.c_str());
     }
     return pBuffer;
 }
