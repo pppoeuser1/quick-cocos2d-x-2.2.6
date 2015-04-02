@@ -80,6 +80,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
         textField_.hidden = true;
 		textField_.returnKeyType = UIReturnKeyDefault;
         [textField_ addTarget:self action:@selector(textChanged) forControlEvents:UIControlEventEditingChanged];
+//        [textField_ addTarget:self action:@selector(onButton) forControlEvents:UIControlEventEditingDidEndOnExit];
         self.editBox = editBox;
         
         return self;
@@ -129,6 +130,13 @@ static const int CC_EDIT_BOX_PADDING = 5;
 {
     if (sender == textField_) {
         [sender resignFirstResponder];
+    }
+    cocos2d::extension::CCEditBox*  pEditBox= getEditBoxImplIOS()->getCCEditBox();
+    if (NULL != pEditBox && 0 != pEditBox->getScriptEditBoxHandler())
+    {
+        cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
+        int handler = pEditBox->getScriptEditBoxHandler();
+        pEngine->executeEvent(handler, "return", pEditBox);
     }
     return NO;
 }
@@ -181,28 +189,28 @@ static const int CC_EDIT_BOX_PADDING = 5;
     {
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
 
-        cocos2d::extension::KeyboardReturnType returnType = getEditBoxImplIOS()->getCCEditBox()->getReturnType();
+//        cocos2d::extension::KeyboardReturnType returnType = getEditBoxImplIOS()->getCCEditBox()->getReturnType();
         int handler = pEditBox->getScriptEditBoxHandler();
-        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
-        {
-            pEngine->executeEvent(handler, "returnDone", pEditBox);
-    }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
-        {
-            pEngine->executeEvent(handler, "returnSend", pEditBox);
-        }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
-        {
-            pEngine->executeEvent(handler, "returnSearch", pEditBox);
-        }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
-        {
-            pEngine->executeEvent(handler, "returnGo", pEditBox);
-        }
-        else
-        {
-            pEngine->executeEvent(handler, "return", pEditBox);
-        }
+//        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
+//        {
+//            pEngine->executeEvent(handler, "returnDone", pEditBox);
+//    }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
+//        {
+//            pEngine->executeEvent(handler, "returnSend", pEditBox);
+//        }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
+//        {
+//            pEngine->executeEvent(handler, "returnSearch", pEditBox);
+//        }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
+//        {
+//            pEngine->executeEvent(handler, "returnGo", pEditBox);
+//        }
+//        else
+//        {
+//            pEngine->executeEvent(handler, "return", pEditBox);
+//        }
         pEngine->executeEvent(handler, "ended",pEditBox);
     }
 	
@@ -255,6 +263,10 @@ static const int CC_EDIT_BOX_PADDING = 5;
         pEngine->executeEvent(pEditBox->getScriptEditBoxHandler(), "changed",pEditBox);
     }
 
+}
+
+-(void) onButton{
+    CCLOG("onButton");
 }
 
 @end
