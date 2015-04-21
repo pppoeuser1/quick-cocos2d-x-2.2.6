@@ -136,7 +136,7 @@ static const int CC_EDIT_BOX_PADDING = 5;
     {
         cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
         int handler = pEditBox->getScriptEditBoxHandler();
-        pEngine->executeEvent(handler, "return", pEditBox);
+        pEngine->executeEvent(handler, "returnSend", pEditBox);
     }
     return NO;
 }
