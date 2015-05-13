@@ -742,6 +742,10 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
     CGSize viewSize = self.frame.size;
     CGFloat tmp;
     
+//    NSLog(@"%@",NSStringFromCGRect(begin));
+//    NSLog(@"%@",NSStringFromCGRect(end));
+//    NSLog(@"%@",NSStringFromCGRect(self.frame));
+    
     switch (getFixedOrientation([[UIApplication sharedApplication] statusBarOrientation]))
     {
         case UIInterfaceOrientationPortrait:
@@ -904,6 +908,10 @@ UIInterfaceOrientation getFixedOrientation(UIInterfaceOrientation statusBarOrien
     {
         [[NSNotificationCenter defaultCenter]postNotification:self.keyboardShowNotification];
     }
+}
+
+-(void) setOriginalRect:(CGRect)rect{
+    originalRect_ = rect;
 }
 
 @end

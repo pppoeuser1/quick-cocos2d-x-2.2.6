@@ -101,6 +101,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
     BOOL                    isKeyboardShown_;
 }
 
+-(void) setOriginalRect:(CGRect)rect;
+
 @property(nonatomic, readonly) UITextPosition *beginningOfDocument;
 @property(nonatomic, readonly) UITextPosition *endOfDocument;
 @property(nonatomic, assign) id<UITextInputDelegate> inputDelegate;
