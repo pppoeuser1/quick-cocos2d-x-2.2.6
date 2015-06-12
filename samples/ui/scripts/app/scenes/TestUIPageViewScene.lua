@@ -24,7 +24,7 @@ function TestUIPageViewScene:createPageView()
         :addTo(self)
 
     -- add items
-    for i=1,18 do
+    for i=1,17 do
         local item = self.pv:newItem()
         local content
 

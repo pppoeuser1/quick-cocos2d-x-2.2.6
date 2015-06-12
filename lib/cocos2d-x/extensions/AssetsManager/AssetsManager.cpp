@@ -36,6 +36,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <errno.h>
+#include <dirent.h>
 #endif
 
 #include "support/zip_support/unzip.h"
@@ -362,12 +363,18 @@ bool AssetsManager::uncompress()
 bool AssetsManager::createDirectory(const char *path)
 {
 #if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    mode_t processMask = umask(0);
-    int ret = mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
-    umask(processMask);
-    if (ret != 0 && (errno != EEXIST))
-    {
-        return false;
+    DIR *pDir = NULL;
+    pDir = opendir(path);
+    if (!pDir) {
+        mode_t processMask = umask(0);
+        int ret = mkdir(path, S_IRWXU | S_IRWXG | S_IRWXO);
+        umask(processMask);
+        if (ret != 0 && (errno != EEXIST))
+        {
+            return false;
+        }
+    } else {
+        closedir(pDir);
     }
     
     return true;
