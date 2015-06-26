@@ -27,6 +27,8 @@
 		2EBAD93D1918BBDC00FF9BD6 /* ccFilterShaders.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2EBAD92A1918BBDC00FF9BD6 /* ccFilterShaders.cpp */; };
 		49832215187FE2C000733BFB /* CZHelperFunc_luabinding.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832213187FE2C000733BFB /* CZHelperFunc_luabinding.cpp */; };
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
+		849849531B3CDF520081A913 /* UIWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8498494D1B3CDF520081A913 /* UIWebView.mm */; };
+		849849551B3CDF520081A913 /* UIWebViewImpl-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 849849511B3CDF520081A913 /* UIWebViewImpl-ios.mm */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
 		DA56D2FE1A3819B3007350D6 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B317575DBE001479DC /* libcurl.a */; };
@@ -550,6 +552,11 @@
 		49832214187FE2C000733BFB /* CZHelperFunc_luabinding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CZHelperFunc_luabinding.h; sourceTree = "<group>"; };
 		49832217187FE2DF00733BFB /* HelperFunc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelperFunc.cpp; sourceTree = "<group>"; };
 		49832218187FE2DF00733BFB /* HelperFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelperFunc.h; sourceTree = "<group>"; };
+		8498494A1B3CDF520081A913 /* UIWebView-inl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView-inl.h"; sourceTree = "<group>"; };
+		8498494C1B3CDF520081A913 /* UIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebView.h; sourceTree = "<group>"; };
+		8498494D1B3CDF520081A913 /* UIWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIWebView.mm; sourceTree = "<group>"; };
+		849849501B3CDF520081A913 /* UIWebViewImpl-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebViewImpl-ios.h"; sourceTree = "<group>"; };
+		849849511B3CDF520081A913 /* UIWebViewImpl-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIWebViewImpl-ios.mm"; sourceTree = "<group>"; };
 		B2DC798F181BA55A001341D6 /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
 		B2DC7990181BA55A001341D6 /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
 		B2DC7991181BA55A001341D6 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -1659,6 +1666,18 @@
 			path = apptools;
 			sourceTree = "<group>";
 		};
+		849849491B3CDF520081A913 /* UIWebView */ = {
+			isa = PBXGroup;
+			children = (
+				8498494A1B3CDF520081A913 /* UIWebView-inl.h */,
+				8498494C1B3CDF520081A913 /* UIWebView.h */,
+				8498494D1B3CDF520081A913 /* UIWebView.mm */,
+				849849501B3CDF520081A913 /* UIWebViewImpl-ios.h */,
+				849849511B3CDF520081A913 /* UIWebViewImpl-ios.mm */,
+			);
+			path = UIWebView;
+			sourceTree = "<group>";
+		};
 		B2DC798E181BA55A001341D6 /* lsqlite3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1940,6 +1959,7 @@
 		F42825F517575DD7001479DC /* GUI */ = {
 			isa = PBXGroup;
 			children = (
+				849849491B3CDF520081A913 /* UIWebView */,
 				F4E8839F1770163800577406 /* CCControlExtension */,
 				F428261017575DD7001479DC /* CCEditBox */,
 				F4E883B91770163800577406 /* CCScrollView */,
@@ -4161,6 +4181,7 @@
 				F40118BD180C9E57002A74D5 /* CCBProxy.cpp in Sources */,
 				F459EB06180D04E1006CBDF1 /* cpSlideJoint.c in Sources */,
 				F4FDD07F1A1DF75200DD4C0B /* ldump.c in Sources */,
+				849849531B3CDF520081A913 /* UIWebView.mm in Sources */,
 				F459EAFC180D04E1006CBDF1 /* cpConstraint.c in Sources */,
 				F4E88301177015C400577406 /* CCUserDefault.cpp in Sources */,
 				F4D26EC2196321AE0087295D /* LayoutReader.cpp in Sources */,
@@ -4184,6 +4205,7 @@
 				E5C463551987A250001192EA /* XMLDataParser.cpp in Sources */,
 				F459EAF6180D04E1006CBDF1 /* CCPhysicsDebugNode.cpp in Sources */,
 				F459EB13180D04E1006CBDF1 /* cpSpaceQuery.c in Sources */,
+				849849551B3CDF520081A913 /* UIWebViewImpl-ios.mm in Sources */,
 				F4D26E9D196321AE0087295D /* CCTweenFunction.cpp in Sources */,
 				F4E8830C177015C400577406 /* CCTextureETC.cpp in Sources */,
 				F4E8830D177015C400577406 /* CCTexturePVR.cpp in Sources */,

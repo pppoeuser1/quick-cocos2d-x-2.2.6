@@ -48,6 +48,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	
 	private Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
+	private Cocos2dxWebViewHelper mWebViewHelper = null;
 	private static Context sContext = null;
 	
 	public static Context getContext() {
@@ -65,6 +66,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     	this.mHandler = new Cocos2dxHandler(this);
 
     	this.init();
+    	
+    	if(mWebViewHelper == null){
+            mWebViewHelper = new Cocos2dxWebViewHelper(mFrameLayout);
+        }
 
 		Cocos2dxHelper.init(this, this);
 	}

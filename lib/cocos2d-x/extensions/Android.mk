@@ -25,6 +25,8 @@ LOCAL_SRC_FILES := \
     GUI/CCScrollView/CCSorting.cpp \
     GUI/CCScrollView/CCTableView.cpp \
     GUI/CCScrollView/CCTableViewCell.cpp \
+    GUI/UIWebView/UIWebView.cpp \
+    GUI/UIWebView/UIWebViewImpl-android.cpp \
     CCBReader/CCData.cpp \
     network/WebSocket.cpp
 

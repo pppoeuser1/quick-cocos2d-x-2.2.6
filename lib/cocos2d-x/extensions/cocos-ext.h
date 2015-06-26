@@ -38,6 +38,7 @@
 #include "GUI/CCScrollView/CCScrollView.h"
 #include "GUI/CCScrollView/CCTableView.h"
 #include "GUI/CCEditBox/CCEditBox.h"
+#include "GUI/UIWebView/UIWebView.h"
 
 #if CC_CCSTUDIO_ENABLED > 0
 #include "CocoStudio/Armature/CCArmature.h"
