@@ -128,6 +128,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     if (!self.uiWebView) {
         self.uiWebView = [[[UIWebView alloc] init] autorelease];
         self.uiWebView.delegate = self;
+        self.uiWebView.opaque = NO;
+        self.uiWebView.backgroundColor = [UIColor clearColor];
     }
     if (!self.uiWebView.superview) {
         EAGLView * pEAGLView = [EAGLView sharedEGLView];
@@ -212,7 +214,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *url = [[request URL] absoluteString];
-    NSLog(@"shouldStartLoadWithRequest, url scheme is:%@",[[request URL] scheme]);
+//    NSLog(@"url:%@",request.URL.absoluteString);
+    NSLog(@"url scheme:%@",[[request URL] scheme]);
     if ([[[request URL] scheme] isEqualToString:self.jsScheme]) {
         self.onJsCallback([url UTF8String]);
         return NO;

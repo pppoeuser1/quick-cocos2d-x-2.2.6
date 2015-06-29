@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Fri Jun 26 11:38:46 2015.
+** Generated automatically by tolua++-1.0.92 on Sat Jun 27 16:10:34 2015.
 */
 
 /****************************************************************************
@@ -57381,7 +57381,7 @@ static int tolua_Cocos2d_WebView_setOnJSCallback00(lua_State* tolua_S)
  tolua_Error tolua_err;
  if (
      !tolua_isusertype(tolua_S,1,"WebView",0,&tolua_err) ||
-     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
      !tolua_isnoobj(tolua_S,3,&tolua_err)
  )
   goto tolua_lerror;
@@ -57389,7 +57389,7 @@ static int tolua_Cocos2d_WebView_setOnJSCallback00(lua_State* tolua_S)
 #endif
  {
   WebView* self = (WebView*)  tolua_tousertype(tolua_S,1,0);
-  int nLuaFunID = ((int)  tolua_tonumber(tolua_S,2,0));
+  LUA_FUNCTION nLuaFunID = (  toluafix_ref_function(tolua_S,2,0));
 #ifndef TOLUA_RELEASE
   if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOnJSCallback'", NULL);
 #endif

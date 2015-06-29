@@ -60,6 +60,7 @@ public class Cocos2dxWebViewHelper {
             @Override
             public void run() {
                 Cocos2dxWebView webView = new Cocos2dxWebView(sCocos2dxActivity, index);
+                webView.setBackgroundColor(0);                
                 FrameLayout.LayoutParams lParams = new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.WRAP_CONTENT,
                         FrameLayout.LayoutParams.WRAP_CONTENT);

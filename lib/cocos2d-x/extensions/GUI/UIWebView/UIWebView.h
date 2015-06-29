@@ -183,6 +183,9 @@ protected:
      * Default destructor.
      */
     virtual ~WebView();
+    
+    void onceSchedulerCallback(float f);
+    std::string _currurl;
 
 private:
     WebViewImpl *_impl;

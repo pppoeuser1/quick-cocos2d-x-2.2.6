@@ -28,7 +28,6 @@
 #include "CCLuaEngine.h"
 
 NS_CC_EXT_BEGIN
-        
         WebView::WebView()
         : _impl(new WebViewImpl(this)),
         _onJSCallback(nullptr),
@@ -40,16 +39,29 @@ NS_CC_EXT_BEGIN
             setContentSize(CCDirector::sharedDirector()->getWinSize());
             
             _onJSCallback = [this](WebView *sender, const std::string &url) {
-                if(_LuaHandlerJSCallback!=-1){
-                    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
-                    stack->pushCCObject(this, "WebView");
-                    stack->pushString(url.c_str());
-                    stack->executeFunctionByHandler(_LuaHandlerJSCallback, 2);
-                    stack->clean();
-                }
+                _currurl =url;
+//                if(_LuaHandlerJSCallback!=-1){
+//                    CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+//                    stack->pushCCObject(this, "WebView");
+//                    stack->pushString(url.c_str());
+//                    stack->executeFunctionByHandler(_LuaHandlerJSCallback, 2);
+//                    stack->clean();
+//                }
+                auto sharedScheduler = CCDirector::sharedDirector()->getScheduler();
+                sharedScheduler->scheduleSelector(schedule_selector(WebView::onceSchedulerCallback), this, 0, 0, 0, false);
             };
         }
-        
+
+void WebView::onceSchedulerCallback(float f){
+    if(_LuaHandlerJSCallback!=-1){
+        CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+        stack->pushCCObject(this, "WebView");
+        stack->pushString(_currurl.c_str());
+        stack->executeFunctionByHandler(_LuaHandlerJSCallback, 2);
+        stack->clean();
+    }
+}
+
         WebView::~WebView()
         {
             CC_SAFE_DELETE(_impl);
