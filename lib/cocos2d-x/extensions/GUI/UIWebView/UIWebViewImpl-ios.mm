@@ -93,7 +93,9 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 @end
 
 
-@interface UIWebViewWrapper () <UIWebViewDelegate>
+@interface UIWebViewWrapper () <UIWebViewDelegate>{
+    UIActivityIndicatorView *activity;
+}
 @property(nonatomic, retain) UIWebView *uiWebView;
 @property(nonatomic, copy) NSString *jsScheme;
 @end
@@ -130,6 +132,10 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
         self.uiWebView.delegate = self;
         self.uiWebView.opaque = NO;
         self.uiWebView.backgroundColor = [UIColor clearColor];
+        
+        activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [activity setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        [self.uiWebView addSubview:activity];
     }
     if (!self.uiWebView.superview) {
         EAGLView * pEAGLView = [EAGLView sharedEGLView];
@@ -147,6 +153,7 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     if (!CGRectEqualToRect(self.uiWebView.frame, newFrame)) {
         self.uiWebView.frame = CGRectMake(x, y, width, height);
     }
+    [activity setCenter:CGPointMake(width/2, height/2)];
 }
 
 - (void)setJavascriptInterfaceScheme:(const std::string &)scheme {
@@ -226,11 +233,17 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     return YES;
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+     [activity startAnimating];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (self.didFinishLoading) {
         NSString *url = [[webView.request URL] absoluteString];
         self.didFinishLoading([url UTF8String]);
     }
+    
+    [activity stopAnimating];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
@@ -240,6 +253,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
             self.didFailLoading([url UTF8String]);
         }
     }
+    
+    [activity stopAnimating];
 }
 
 @end

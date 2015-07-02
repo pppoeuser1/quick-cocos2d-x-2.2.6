@@ -4481,7 +4481,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 arm64";
+				VALID_ARCHS = "armv7 arm64 arm64";
 				WARNING_CFLAGS = "-fdiagnostics-show-option";
 			};
 			name = Debug;
@@ -4547,7 +4547,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 arm64";
+				VALID_ARCHS = "armv7 arm64 arm64";
 				WARNING_CFLAGS = "-fdiagnostics-show-option";
 			};
 			name = Release;
