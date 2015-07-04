@@ -37,7 +37,9 @@ inline map<string, string> jHashMap2StdMap(JNIEnv* env, jobject jhashmap)
 		{
 			break;
 		}
-		static jclass mapClass = env->FindClass("java/util/HashMap");
+//		static jclass mapClass = env->FindClass("java/util/HashMap");
+        jclass tmp = env->FindClass("java/util/HashMap");
+        static jclass mapClass = (jclass)env->NewGlobalRef(tmp);
 		if (mapClass == NULL)
 		{
 			break;
@@ -57,7 +59,9 @@ inline map<string, string> jHashMap2StdMap(JNIEnv* env, jobject jhashmap)
 		{
 			break;
 		}
-		static jclass setClass =  env->FindClass("java/util/Set");
+//		static jclass setClass =  env->FindClass("java/util/Set");
+        jclass tmp2 = env->FindClass("java/util/Set");
+        static jclass setClass = (jclass)env->NewGlobalRef(tmp2);
 		if (setClass == NULL)
 		{
 			break;
@@ -100,7 +104,9 @@ inline vector<string> jVector2stdVector(JNIEnv* env, jobject jVector)
 		{
 			break;
 		}
-		static jclass vectorClass = env->FindClass("java/util/Vector");
+//		static jclass vectorClass = env->FindClass("java/util/Vector");
+        jclass tmp = env->FindClass("java/util/Vector");
+        static jclass vectorClass = (jclass)env->NewGlobalRef(tmp);
 		if (vectorClass == NULL)
 		{
 			break;
@@ -140,7 +146,9 @@ inline vector<string> jArray2stdVector(JNIEnv* env, jobject jArray)
 		{
 			break;
 		}
-		static jclass arrayClass = env->FindClass("java/util/ArrayList");
+//		static jclass arrayClass = env->FindClass("java/util/ArrayList");
+        jclass tmp = env->FindClass("java/util/ArrayList");
+        static jclass arrayClass = (jclass)env->NewGlobalRef(tmp);
 		if (arrayClass == NULL)
 		{
 			break;
