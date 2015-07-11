@@ -272,6 +272,8 @@ public:
       * @since v2.1
       */
      void addSearchPath(const char* path);
+    
+    void deleteSearchPath(const char* path);
 
     /**
       * Removes all paths.

@@ -717,6 +717,17 @@ void CCFileUtils::addSearchPath(const char* path)
 }
 	}
 
+void CCFileUtils::deleteSearchPath(const char* path){
+    for (std::vector<std::string>::iterator it = m_searchPathArray.begin(); it != m_searchPathArray.end(); ++it)
+    {
+        std::string opath = *it;
+        if (opath == path) {
+            m_searchPathArray.erase(it);
+            break;
+        }
+    }
+}
+
 void CCFileUtils::setFilenameLookupDictionary(CCDictionary* pFilenameLookupDict)
 {
     m_fullPathCache.clear();
