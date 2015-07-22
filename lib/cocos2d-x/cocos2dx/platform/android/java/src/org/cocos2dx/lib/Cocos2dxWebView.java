@@ -4,7 +4,9 @@ import java.lang.reflect.Method;
 import java.net.URI;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.Gravity;
 import android.webkit.WebChromeClient;
@@ -17,6 +19,7 @@ public class Cocos2dxWebView extends WebView {
 
     private int mViewTag;
     private String mJSScheme;
+    private ProgressDialog mPd;
 
     public Cocos2dxWebView(Context context) {
         this(context, -1);
@@ -27,6 +30,9 @@ public class Cocos2dxWebView extends WebView {
         super(context);
         this.mViewTag = viewTag;
         this.mJSScheme = "";
+        mPd = new ProgressDialog(context);
+        mPd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mPd.setCancelable(true);
 
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);
@@ -70,12 +76,20 @@ public class Cocos2dxWebView extends WebView {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             Cocos2dxWebViewHelper._didFinishLoading(mViewTag, url);
+            mPd.dismiss();
         }
 
         @Override
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
             Cocos2dxWebViewHelper._didFailLoading(mViewTag, failingUrl);
+            mPd.dismiss();
+        }
+        
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        	super.onPageStarted(view, url, favicon);
+        	mPd.show();
         }
     }
     
