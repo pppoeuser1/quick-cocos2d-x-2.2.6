@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.Gravity;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
@@ -35,8 +36,10 @@ public class Cocos2dxWebView extends WebView {
         mPd.setCancelable(true);
 
         this.setFocusable(true);
-        this.setFocusableInTouchMode(true);
-
+        this.setFocusableInTouchMode(true);        
+        
+		this.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        
         this.getSettings().setSupportZoom(false);
 
         this.getSettings().setJavaScriptEnabled(true);
