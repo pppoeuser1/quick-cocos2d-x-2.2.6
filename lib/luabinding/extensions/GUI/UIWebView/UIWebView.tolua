@@ -87,5 +87,8 @@ public:
 
     
     void setOnJSCallback(LUA_FUNCTION nLuaFunID);
+    void setOnShouldStartLoading(LUA_FUNCTION luaFun);
+    void setOnDidFinishLoading(LUA_FUNCTION luaFun);
+    void setOnDidFailLoading(LUA_FUNCTION luaFun);
     
 };

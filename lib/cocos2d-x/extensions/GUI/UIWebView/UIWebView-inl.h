@@ -34,7 +34,10 @@ NS_CC_EXT_BEGIN
         _onShouldStartLoading(nullptr),
         _onDidFinishLoading(nullptr),
         _onDidFailLoading(nullptr),
-        _LuaHandlerJSCallback(-1)
+        _LuaHandlerJSCallback(-1),
+        _LuaHandlerOnShouldStartLoading(-1),
+        _LuaHandlerOnDidFinishLoading(-1),
+        _LuaHandlerOnDidFailLoading(-1)
         {
             setContentSize(CCDirector::sharedDirector()->getWinSize());
             
@@ -50,6 +53,26 @@ NS_CC_EXT_BEGIN
                 auto sharedScheduler = CCDirector::sharedDirector()->getScheduler();
                 sharedScheduler->scheduleSelector(schedule_selector(WebView::onceSchedulerCallback), this, 0, 0, 0, false);
             };
+            
+            _onShouldStartLoading = [this](WebView *sender, const std::string &url) {
+                _currurlStart = url;
+                auto sharedScheduler = CCDirector::sharedDirector()->getScheduler();
+                sharedScheduler->scheduleSelector(schedule_selector(WebView::onceScheduler_Start), this, 0, 0, 0, false);
+                return true;
+            };
+            
+            _onDidFinishLoading = [this](WebView *sender, const std::string &url) {
+                _currurlFinish = url;
+                auto sharedScheduler = CCDirector::sharedDirector()->getScheduler();
+                sharedScheduler->scheduleSelector(schedule_selector(WebView::onceScheduler_Finish), this, 0, 0, 0, false);
+            };
+            
+            _onDidFailLoading = [this](WebView *sender, const std::string &url) {
+                _currurlFail = url;
+                auto sharedScheduler = CCDirector::sharedDirector()->getScheduler();
+                sharedScheduler->scheduleSelector(schedule_selector(WebView::onceScheduler_Fail), this, 0, 0, 0, false);
+            };
+
         }
 
 void WebView::onceSchedulerCallback(float f){
@@ -58,6 +81,36 @@ void WebView::onceSchedulerCallback(float f){
         stack->pushCCObject(this, "WebView");
         stack->pushString(_currurl.c_str());
         stack->executeFunctionByHandler(_LuaHandlerJSCallback, 2);
+        stack->clean();
+    }
+}
+
+void WebView::onceScheduler_Start(float f){
+    if(_LuaHandlerOnShouldStartLoading!=-1){
+        CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+        stack->pushCCObject(this, "WebView");
+        stack->pushString(_currurlStart.c_str());
+        stack->executeFunctionByHandler(_LuaHandlerOnShouldStartLoading, 2);
+        stack->clean();
+    }
+}
+
+void WebView::onceScheduler_Finish(float f){
+    if(_LuaHandlerOnDidFinishLoading!=-1){
+        CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+        stack->pushCCObject(this, "WebView");
+        stack->pushString(_currurlFinish.c_str());
+        stack->executeFunctionByHandler(_LuaHandlerOnDidFinishLoading, 2);
+        stack->clean();
+    }
+}
+
+void WebView::onceScheduler_Fail(float f){
+    if(_LuaHandlerOnDidFailLoading!=-1){
+        CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+        stack->pushCCObject(this, "WebView");
+        stack->pushString(_currurlFail.c_str());
+        stack->executeFunctionByHandler(_LuaHandlerOnDidFailLoading, 2);
         stack->clean();
     }
 }
@@ -213,6 +266,27 @@ void WebView::setOnJSCallback(int nLuaFunID){
         _LuaHandlerJSCallback = -1;
     }
     _LuaHandlerJSCallback = nLuaFunID;
+}
+void WebView::setOnShouldStartLoading(int nLuaFunID){
+    if (_LuaHandlerOnShouldStartLoading!=-1) {
+        CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(_LuaHandlerOnShouldStartLoading);
+        _LuaHandlerOnShouldStartLoading = -1;
+    }
+    _LuaHandlerOnShouldStartLoading = nLuaFunID;
+}
+void WebView::setOnDidFinishLoading(int nLuaFunID){
+    if (_LuaHandlerOnDidFinishLoading!=-1) {
+        CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(_LuaHandlerOnDidFinishLoading);
+        _LuaHandlerOnDidFinishLoading = -1;
+    }
+    _LuaHandlerOnDidFinishLoading = nLuaFunID;
+}
+void WebView::setOnDidFailLoading(int nLuaFunID){
+    if (_LuaHandlerOnDidFailLoading!=-1) {
+        CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(_LuaHandlerOnDidFailLoading);
+        _LuaHandlerOnDidFailLoading = -1;
+    }
+    _LuaHandlerOnDidFailLoading = nLuaFunID;
 }
 
 NS_CC_EXT_END

@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sat Jun 27 16:10:34 2015.
+** Generated automatically by tolua++-1.0.92 on Sat Aug 15 12:40:43 2015.
 */
 
 /****************************************************************************
@@ -57406,6 +57406,105 @@ static int tolua_Cocos2d_WebView_setOnJSCallback00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setOnShouldStartLoading of class  WebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_WebView_setOnShouldStartLoading00
+static int tolua_Cocos2d_WebView_setOnShouldStartLoading00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"WebView",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  WebView* self = (WebView*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION luaFun = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOnShouldStartLoading'", NULL);
+#endif
+  {
+   self->setOnShouldStartLoading(luaFun);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOnShouldStartLoading'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOnDidFinishLoading of class  WebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_WebView_setOnDidFinishLoading00
+static int tolua_Cocos2d_WebView_setOnDidFinishLoading00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"WebView",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  WebView* self = (WebView*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION luaFun = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOnDidFinishLoading'", NULL);
+#endif
+  {
+   self->setOnDidFinishLoading(luaFun);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOnDidFinishLoading'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setOnDidFailLoading of class  WebView */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_WebView_setOnDidFailLoading00
+static int tolua_Cocos2d_WebView_setOnDidFailLoading00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"WebView",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  WebView* self = (WebView*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION luaFun = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setOnDidFailLoading'", NULL);
+#endif
+  {
+   self->setOnDidFailLoading(luaFun);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setOnDidFailLoading'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: new of class  AssetsManager */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_AssetsManager_new00
 static int tolua_Cocos2d_AssetsManager_new00(lua_State* tolua_S)
@@ -60755,6 +60854,9 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"evaluateJS",tolua_Cocos2d_WebView_evaluateJS00);
    tolua_function(tolua_S,"setScalesPageToFit",tolua_Cocos2d_WebView_setScalesPageToFit00);
    tolua_function(tolua_S,"setOnJSCallback",tolua_Cocos2d_WebView_setOnJSCallback00);
+   tolua_function(tolua_S,"setOnShouldStartLoading",tolua_Cocos2d_WebView_setOnShouldStartLoading00);
+   tolua_function(tolua_S,"setOnDidFinishLoading",tolua_Cocos2d_WebView_setOnDidFinishLoading00);
+   tolua_function(tolua_S,"setOnDidFailLoading",tolua_Cocos2d_WebView_setOnDidFailLoading00);
   tolua_endmodule(tolua_S);
   #ifdef __cplusplus
   tolua_cclass(tolua_S,"AssetsManager","AssetsManager","",tolua_collect_AssetsManager);

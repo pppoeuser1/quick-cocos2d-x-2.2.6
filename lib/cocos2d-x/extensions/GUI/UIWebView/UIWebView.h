@@ -161,7 +161,9 @@ public:
     virtual void setVisible(bool visible);
     
     void setOnJSCallback(int nLuaFunID);
-    
+    void setOnShouldStartLoading(int luaFun);
+    void setOnDidFinishLoading(int luaFun);
+    void setOnDidFailLoading(int luaFun);
 protected:
 //    virtual cocos2d::ui::Widget* createCloneInstance() override;
 //    virtual void copySpecialProperties(CCNode* model) override;
@@ -183,15 +185,27 @@ protected:
      * Default destructor.
      */
     virtual ~WebView();
-    
-    void onceSchedulerCallback(float f);
-    std::string _currurl;
 
 private:
     WebViewImpl *_impl;
     friend class WebViewImpl;
     
+    void onceSchedulerCallback(float f);
     int _LuaHandlerJSCallback;
+    std::string _currurl;
+    
+    
+    void onceScheduler_Start(float f);
+    int _LuaHandlerOnShouldStartLoading;
+    std::string _currurlStart;
+    
+    void onceScheduler_Finish(float f);
+    int _LuaHandlerOnDidFinishLoading;
+    std::string _currurlFinish;
+    
+    void onceScheduler_Fail(float f);
+    int _LuaHandlerOnDidFailLoading;
+    std::string _currurlFail;
 };
 
 NS_CC_EXT_END

@@ -222,7 +222,7 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     NSString *url = [[request URL] absoluteString];
 //    NSLog(@"url:%@",request.URL.absoluteString);
-    NSLog(@"url scheme:%@",[[request URL] scheme]);
+//    NSLog(@"url scheme:%@",[[request URL] scheme]);
     if ([[[request URL] scheme] isEqualToString:self.jsScheme]) {
         self.onJsCallback([url UTF8String]);
         return NO;
