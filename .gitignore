@@ -159,3 +159,5 @@ tests/*/publish/
 
 
 .svn
+
+samples/2048/hxgame.config
