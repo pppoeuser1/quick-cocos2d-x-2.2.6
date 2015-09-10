@@ -33,6 +33,7 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -155,6 +156,17 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
 		final LinearLayout layout = new LinearLayout(this.getContext());
 		layout.setOrientation(LinearLayout.VERTICAL);
+		
+		layout.setOnClickListener(new View.OnClickListener() {
+	            
+	            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Cocos2dxHelper.setEditTextDialogResult(Cocos2dxEditBoxDialog.this.mInputEditText.getText().toString());
+                Cocos2dxEditBoxDialog.this.closeKeyboard();
+                Cocos2dxEditBoxDialog.this.dismiss();
+            }
+        });
 
 		final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
 

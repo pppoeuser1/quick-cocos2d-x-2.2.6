@@ -174,7 +174,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 - (void)loadUrl:(const std::string &)urlString {
     if (!self.uiWebView) {[self setupWebView];}
     NSURL *url = [NSURL URLWithString:@(urlString.c_str())];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:60];
     [self.uiWebView loadRequest:request];
 }
 
