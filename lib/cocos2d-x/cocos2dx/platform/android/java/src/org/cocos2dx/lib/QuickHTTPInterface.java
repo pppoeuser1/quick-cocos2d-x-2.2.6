@@ -398,6 +398,9 @@ public class QuickHTTPInterface {
                 	}
                 	bFirst = false;
                 }
+                if(item.length < 2){ // add by leeass
+                    continue;
+                }
                 if ("expires".equalsIgnoreCase(item[0].trim())) {
                     strExpire = str2Seconds(item[1].trim());
                 } else if("secure".equalsIgnoreCase(item[0].trim())) {
