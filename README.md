@@ -1,3 +1,2 @@
 # quick-cocos2d-x-2.2.6
-这是一个我自己用的cocos2dx版本, 基于cocos2dx v2分支的最新代码。
-目前修改了一些bug，并且把cocos2dx3.5的webview集成过来了。
+官方已经不维护2.2.6版本了，这个是我正在用的版本，修复了一些bug，同时还集成了Webview控件。这个版本很稳定，周边工具的兼容性也很好,TexturePacker和CocosStudio1.6都能兼容，目前我们上线的项目就是用这个版本。我们的游戏是515德州扑克(AppStore，实现热更新)，有需要可以下载看看效果
