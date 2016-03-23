@@ -803,6 +803,8 @@ void CCDirector::pause(void)
     // when paused, don't consume CPU
     setAnimationInterval(1 / 4.0);
     m_bPaused = true;
+    
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_PAUSE_COCOS2D_EVENT");
 }
 
 void CCDirector::resume(void)
@@ -821,6 +823,8 @@ void CCDirector::resume(void)
 
     m_bPaused = false;
     m_fDeltaTime = 0;
+    
+    CCNotificationCenter::sharedNotificationCenter()->postNotification("APP_RESUME_COCOS2D_EVENT");
 }
 
 // display the FPS using a LabelAtlas

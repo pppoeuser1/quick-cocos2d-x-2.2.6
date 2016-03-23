@@ -416,7 +416,7 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
     
     manager->_schedule->sendMessage(msg);
     
-    CCLOG("downloading... %d%%", (int)(nowDownloaded/totalToDownload*100));
+//    CCLOG("downloading... %d%%", (int)(nowDownloaded/totalToDownload*100));
     
     return 0;
 }

@@ -38,7 +38,7 @@ public class Cocos2dxWebView extends WebView {
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);        
         
-		this.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		this.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         
         this.getSettings().setSupportZoom(false);
 

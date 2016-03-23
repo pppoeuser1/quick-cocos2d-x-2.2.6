@@ -272,6 +272,17 @@ public class Cocos2dxHelper {
 			/* Nothing. */
 		}
 	}
+	
+	public static void excuteEditBoxCallbackActionSend(){
+		Cocos2dxHelper.sCocos2dxHelperListener.runOnGLThread(new Runnable() {
+			@Override
+			public void run() {
+				Cocos2dxHelper.nativeEditBoxCallbackActionSend();
+			}
+		});
+	}
+	
+	private static native void nativeEditBoxCallbackActionSend();
 
     public static int getDPI()
     {

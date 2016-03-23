@@ -13,6 +13,7 @@
 #define  CLASS_NAME "org/cocos2dx/lib/Cocos2dxHelper"
 
 static EditTextCallback s_pfEditTextCallback = NULL;
+static EditBoxCallbackActionSend s_pfeditBoxCallbackActionSend = NULL;
 static void* s_ctx = NULL;
 
 using namespace cocos2d;
@@ -43,6 +44,12 @@ extern "C" {
         } else {
             if (s_pfEditTextCallback) s_pfEditTextCallback("", s_ctx);
         }
+    }
+    
+    JNIEXPORT void JNICALL Java_org_cocos2dx_lib_Cocos2dxHelper_nativeEditBoxCallbackActionSend(JNIEnv * env, jobject obj) {
+        if (s_pfeditBoxCallbackActionSend)
+            s_pfeditBoxCallbackActionSend(s_ctx);
+        
     }
 
 }
@@ -77,15 +84,17 @@ void showDialogJNI(const char * pszMsg, const char * pszTitle) {
 
 void releaseEdit(){
     s_pfEditTextCallback = NULL;
+    s_pfeditBoxCallbackActionSend = NULL;
     s_ctx = NULL;
 }
 
-void showEditTextDialogJNI(const char* pszTitle, const char* pszMessage, int nInputMode, int nInputFlag, int nReturnType, int nMaxLength, EditTextCallback pfEditTextCallback, void* ctx) {
+void showEditTextDialogJNI(const char* pszTitle, const char* pszMessage, int nInputMode, int nInputFlag, int nReturnType, int nMaxLength, EditTextCallback pfEditTextCallback,EditBoxCallbackActionSend pfeditBoxCallbackActionSend, void* ctx) {
     if (pszMessage == NULL) {
         return;
     }
 
     s_pfEditTextCallback = pfEditTextCallback;
+    s_pfeditBoxCallbackActionSend = pfeditBoxCallbackActionSend;
     s_ctx = ctx;
 
     JniMethodInfo t;

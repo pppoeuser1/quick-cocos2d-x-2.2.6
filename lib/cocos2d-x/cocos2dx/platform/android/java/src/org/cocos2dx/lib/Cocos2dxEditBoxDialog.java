@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
@@ -289,10 +290,12 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 				/* If user didn't set keyboard type, this callback will be invoked twice with 'KeyEvent.ACTION_DOWN' and 'KeyEvent.ACTION_UP'. */
 				if (actionId != EditorInfo.IME_NULL || (actionId == EditorInfo.IME_NULL && event != null && event.getAction() == KeyEvent.ACTION_DOWN)) {
 					Cocos2dxHelper.setEditTextDialogResult(Cocos2dxEditBoxDialog.this.mInputEditText.getText().toString());
+					Cocos2dxHelper.excuteEditBoxCallbackActionSend();
 					Cocos2dxEditBoxDialog.this.closeKeyboard();
-					Cocos2dxEditBoxDialog.this.dismiss();
+					Cocos2dxEditBoxDialog.this.dismiss();													
 					return true;
 				}
+				
 				return false;
 			}
 		});

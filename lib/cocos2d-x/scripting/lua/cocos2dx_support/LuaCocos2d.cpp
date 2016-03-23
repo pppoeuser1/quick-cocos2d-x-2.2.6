@@ -60902,7 +60902,6 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_dobuffer(tolua_S,(char*)B,sizeof(B),"tolua: embedded Lua code 1");
    lua_settop(tolua_S, top);
   } /* end of embedded lua code */
-
  tolua_endmodule(tolua_S);
  return 1;
 }
