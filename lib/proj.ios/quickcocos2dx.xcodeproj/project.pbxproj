@@ -29,6 +29,8 @@
 		49832219187FE2DF00733BFB /* HelperFunc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49832217187FE2DF00733BFB /* HelperFunc.cpp */; };
 		849849531B3CDF520081A913 /* UIWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8498494D1B3CDF520081A913 /* UIWebView.mm */; };
 		849849551B3CDF520081A913 /* UIWebViewImpl-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 849849511B3CDF520081A913 /* UIWebViewImpl-ios.mm */; };
+		84AE51751D1A62C4008435E8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE51731D1A62C4008435E8 /* libcrypto.a */; };
+		84AE51761D1A62C4008435E8 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE51741D1A62C4008435E8 /* libssl.a */; };
 		B2DC7993181BA55A001341D6 /* lsqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC798F181BA55A001341D6 /* lsqlite3.c */; };
 		B2DC7994181BA55A001341D6 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = B2DC7991181BA55A001341D6 /* sqlite3.c */; };
 		DA56D2FE1A3819B3007350D6 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F42825B317575DBE001479DC /* libcurl.a */; };
@@ -557,6 +559,8 @@
 		8498494D1B3CDF520081A913 /* UIWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIWebView.mm; sourceTree = "<group>"; };
 		849849501B3CDF520081A913 /* UIWebViewImpl-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebViewImpl-ios.h"; sourceTree = "<group>"; };
 		849849511B3CDF520081A913 /* UIWebViewImpl-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIWebViewImpl-ios.mm"; sourceTree = "<group>"; };
+		84AE51731D1A62C4008435E8 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		84AE51741D1A62C4008435E8 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		B2DC798F181BA55A001341D6 /* lsqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lsqlite3.c; sourceTree = "<group>"; };
 		B2DC7990181BA55A001341D6 /* lsqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lsqlite3.h; sourceTree = "<group>"; };
 		B2DC7991181BA55A001341D6 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
@@ -1551,6 +1555,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45A2BA1166B07B600760194 /* Foundation.framework in Frameworks */,
+				84AE51751D1A62C4008435E8 /* libcrypto.a in Frameworks */,
+				84AE51761D1A62C4008435E8 /* libssl.a in Frameworks */,
 				DA56D2FE1A3819B3007350D6 /* libcurl.a in Frameworks */,
 				F4A8F6BB17F0B1A400110198 /* libwebsockets.a in Frameworks */,
 				F42825BA17575DBE001479DC /* libwebp.a in Frameworks */,
@@ -1931,6 +1937,8 @@
 		F42825B217575DBE001479DC /* libraries */ = {
 			isa = PBXGroup;
 			children = (
+				84AE51731D1A62C4008435E8 /* libcrypto.a */,
+				84AE51741D1A62C4008435E8 /* libssl.a */,
 				F42825B317575DBE001479DC /* libcurl.a */,
 				F42825B417575DBE001479DC /* libwebp.a */,
 			);

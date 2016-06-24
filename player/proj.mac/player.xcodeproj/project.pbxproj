@@ -21,7 +21,6 @@
 		F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15816B7A35700A12606 /* AudioToolbox.framework */; };
 		F4A5C15F16B7A35700A12606 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15916B7A35700A12606 /* OpenAL.framework */; };
 		F4A5C16016B7A35700A12606 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C15A16B7A35700A12606 /* OpenGL.framework */; };
-		F4A5C16E16B7A3EC00A12606 /* libcurl.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16B16B7A3EC00A12606 /* libcurl.dylib */; };
 		F4A5C16F16B7A3EC00A12606 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16C16B7A3EC00A12606 /* libxml2.dylib */; };
 		F4A5C17016B7A3EC00A12606 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = F4A5C16D16B7A3EC00A12606 /* libz.dylib */; };
 		F4B0814A175C89050029F472 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = F4B08140175C89050029F472 /* AppController.mm */; };
@@ -60,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		843CF9EE1D06B0E5005F3559 /* libcurl.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcurl.tbd; path = usr/lib/libcurl.tbd; sourceTree = SDKROOT; };
 		9F27C1E01945A8E70029D37A /* AppControllerBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppControllerBridge.h; sourceTree = "<group>"; };
 		9F27C1E11945A8E70029D37A /* AppControllerBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AppControllerBridge.mm; sourceTree = "<group>"; };
 		9F27C1E21945A8E70029D37A /* ConsoleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleWindowController.h; sourceTree = "<group>"; };
@@ -115,7 +115,6 @@
 				F4A5C15E16B7A35700A12606 /* AudioToolbox.framework in Frameworks */,
 				F4A5C15F16B7A35700A12606 /* OpenAL.framework in Frameworks */,
 				F4A5C16016B7A35700A12606 /* OpenGL.framework in Frameworks */,
-				F4A5C16E16B7A3EC00A12606 /* libcurl.dylib in Frameworks */,
 				F4A5C16F16B7A3EC00A12606 /* libxml2.dylib in Frameworks */,
 				F4A5C17016B7A3EC00A12606 /* libz.dylib in Frameworks */,
 			);
@@ -145,6 +144,7 @@
 		F44C957515F49004004D4151 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843CF9EE1D06B0E5005F3559 /* libcurl.tbd */,
 				F44C957915F49004004D4151 /* AppKit.framework */,
 				F4A5C15816B7A35700A12606 /* AudioToolbox.framework */,
 				F44C957615F49004004D4151 /* Cocoa.framework */,
@@ -404,7 +404,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform\"",
@@ -430,7 +429,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -459,7 +458,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = (
-					"\"$(SDKROOT)/usr/include/libxml2\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/include\"",
 					"\"$(QUICK_COCOS2DX_ROOT)/lib/cocos2d-x/cocos2dx/platform\"",
@@ -485,7 +483,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INFOPLIST_OUTPUT_FORMAT = binary;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
