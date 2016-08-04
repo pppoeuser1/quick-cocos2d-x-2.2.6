@@ -32,6 +32,7 @@
 #include "label_nodes/CCLabelBMFont.h"
 #include "actions/CCAction.h"
 #include "actions/CCActionInterval.h"
+#include "SimpleAudioEngine.h"
 
 using namespace std;
 
@@ -691,6 +692,8 @@ void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     if (isTouchInside(pTouch))
     {
         sendActionsForControlEvents(CCControlEventTouchUpInside);
+        
+        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/clickbtn.mp3");
     }
     else
     {

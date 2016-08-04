@@ -1,52 +1,21 @@
 /* tolua: functions to push C values.
-** Support code for Lua bindings.
-** Written by Waldemar Celes
-** TeCGraf/PUC-Rio
-** Apr 2003
-** $Id: $
-*/
+ ** Support code for Lua bindings.
+ ** Written by Waldemar Celes
+ ** TeCGraf/PUC-Rio
+ ** Apr 2003
+ ** $Id: $
+ */
 
 /* This code is free software; you can redistribute it and/or modify it.
-** The software provided hereunder is on an "as is" basis, and
-** the author has no obligation to provide maintenance, support, updates,
-** enhancements, or modifications.
-*/
+ ** The software provided hereunder is on an "as is" basis, and
+ ** the author has no obligation to provide maintenance, support, updates,
+ ** enhancements, or modifications.
+ */
 
 #include "tolua++.h"
 #include "lauxlib.h"
 
 #include <stdlib.h>
-
-TOLUA_API void tolua_pushvalue (lua_State* L, int lo)
-{
-    lua_pushvalue(L,lo);
-}
-
-TOLUA_API void tolua_pushboolean (lua_State* L, int value)
-{
-    lua_pushboolean(L,value);
-}
-
-TOLUA_API void tolua_pushnumber (lua_State* L, lua_Number value)
-{
-    lua_pushnumber(L,value);
-}
-
-TOLUA_API void tolua_pushstring (lua_State* L, const char* value)
-{
-    if (value == NULL)
-        lua_pushnil(L);
-    else
-        lua_pushstring(L,value);
-}
-
-TOLUA_API void tolua_pushuserdata (lua_State* L, void* value)
-{
-    if (value == NULL)
-        lua_pushnil(L);
-    else
-        lua_pushlightuserdata(L,value);
-}
 
 void tolua_pushusertype_internal (lua_State* L, void* value, const char* type, int addToRoot)
 {
@@ -121,7 +90,38 @@ void tolua_pushusertype_internal (lua_State* L, void* value, const char* type, i
             lua_pushvalue(L, -1);
             tolua_add_value_to_root(L, value);
         }
-    } 
+    }
+}
+
+TOLUA_API void tolua_pushvalue (lua_State* L, int lo)
+{
+    lua_pushvalue(L,lo);
+}
+
+TOLUA_API void tolua_pushboolean (lua_State* L, int value)
+{
+    lua_pushboolean(L,value);
+}
+
+TOLUA_API void tolua_pushnumber (lua_State* L, lua_Number value)
+{
+    lua_pushnumber(L,value);
+}
+
+TOLUA_API void tolua_pushstring (lua_State* L, const char* value)
+{
+    if (value == NULL)
+        lua_pushnil(L);
+    else
+        lua_pushstring(L,value);
+}
+
+TOLUA_API void tolua_pushuserdata (lua_State* L, void* value)
+{
+    if (value == NULL)
+        lua_pushnil(L);
+    else
+        lua_pushlightuserdata(L,value);
 }
 
 TOLUA_API void tolua_pushusertype (lua_State* L, void* value, const char* type)
@@ -132,6 +132,12 @@ TOLUA_API void tolua_pushusertype (lua_State* L, void* value, const char* type)
 TOLUA_API void tolua_pushusertype_and_addtoroot (lua_State* L, void* value, const char* type)
 {
     tolua_pushusertype_internal(L, value, type, 1);
+}
+
+TOLUA_API void tolua_pushusertype_and_takeownership (lua_State* L, void* value, const char* type)
+{
+    tolua_pushusertype(L,value,type);
+    tolua_register_gc(L,lua_gettop(L));
 }
 
 TOLUA_API void tolua_add_value_to_root(lua_State* L, void* ptr)
@@ -156,12 +162,6 @@ TOLUA_API void tolua_remove_value_from_root (lua_State* L, void* ptr)
     lua_pushnil(L);                                                 /* stack: root ptr nil */
     lua_rawset(L, -3);                                              /* root[ptr] = nil, stack: root */
     lua_pop(L, 1);
-}
-
-TOLUA_API void tolua_pushusertype_and_takeownership (lua_State* L, void* value, const char* type)
-{
-    tolua_pushusertype(L,value,type);
-    tolua_register_gc(L,lua_gettop(L));
 }
 
 TOLUA_API void tolua_pushfieldvalue (lua_State* L, int lo, int index, int v)
@@ -214,4 +214,3 @@ TOLUA_API void tolua_pushfieldusertype_and_takeownership (lua_State* L, int lo, 
     tolua_register_gc(L,lua_gettop(L));
     lua_settable(L,lo);
 }
-

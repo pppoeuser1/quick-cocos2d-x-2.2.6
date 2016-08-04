@@ -1,16 +1,16 @@
 /* tolua: funcitons to convert to C types
-** Support code for Lua bindings.
-** Written by Waldemar Celes
-** TeCGraf/PUC-Rio
-** Apr 2003
-** $Id: $
-*/
+ ** Support code for Lua bindings.
+ ** Written by Waldemar Celes
+ ** TeCGraf/PUC-Rio
+ ** Apr 2003
+ ** $Id: $
+ */
 
 /* This code is free software; you can redistribute it and/or modify it.
-** The software provided hereunder is on an "as is" basis, and
-** the author has no obligation to provide maintenance, support, updates,
-** enhancements, or modifications.
-*/
+ ** The software provided hereunder is on an "as is" basis, and
+ ** the author has no obligation to provide maintenance, support, updates,
+ ** enhancements, or modifications.
+ */
 
 #include "tolua++.h"
 
@@ -29,18 +29,18 @@ TOLUA_API const char* tolua_tostring (lua_State* L, int narg, const char* def)
 
 TOLUA_API void* tolua_touserdata (lua_State* L, int narg, void* def)
 {
-
+    
     /* return lua_gettop(L)<abs(narg) ? def : lua_touserdata(L,narg); */
-
+    
     if (lua_gettop(L)<abs(narg)) {
         return def;
     };
-
+    
     if (lua_islightuserdata(L, narg)) {
-
+        
         return lua_touserdata(L,narg);
     };
-
+    
     return tolua_tousertype(L, narg, def);
 }
 
