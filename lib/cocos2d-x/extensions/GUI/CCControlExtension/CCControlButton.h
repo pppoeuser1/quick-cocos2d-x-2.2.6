@@ -60,6 +60,9 @@ public:
     virtual void setEnabled(bool enabled);
     virtual void setSelected(bool enabled);
     virtual void setHighlighted(bool enabled);
+    
+    void setIsPlayDefaultEffect(bool b);
+    void setEffectFile(const char *name);
 protected:
     // CCRGBAProtocol
     //bool m_bIsOpacityModifyRGB;
@@ -98,6 +101,8 @@ protected:
 protected:
     bool m_isPushed;
     bool m_bParentInited;
+    bool m_bPlayDefalutEffect;
+    std::string m_effectFile;
 public:
     bool isPushed() { return m_isPushed; }
 

@@ -181,6 +181,9 @@ class CCControlButton : public CCControl
      * in "CCControlState".
      */
     void setBackgroundSpriteFrameForState(CCSpriteFrame * spriteFrame, CCControlState state);
+
+    void setIsPlayDefaultEffect(bool b);
+    void setEffectFile(const char *name);
 };
 
 // end of GUI group

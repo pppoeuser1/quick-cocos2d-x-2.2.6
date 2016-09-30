@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.util.Log;
 import android.view.Gravity;
 import android.webkit.WebChromeClient;
@@ -38,7 +39,7 @@ public class Cocos2dxWebView extends WebView {
         this.setFocusable(true);
         this.setFocusableInTouchMode(true);        
         
-		this.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+		this.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
         
         this.getSettings().setSupportZoom(false);
 
@@ -54,6 +55,12 @@ public class Cocos2dxWebView extends WebView {
 
         this.setWebViewClient(new Cocos2dxWebViewClient());
         this.setWebChromeClient(new WebChromeClient());
+        
+        if(Build.VERSION.SDK_INT >= 19) {
+        	this.getSettings().setLoadsImagesAutomatically(true);
+        } else {
+        	this.getSettings().setLoadsImagesAutomatically(false);
+        }
     }
 
     public void setJavascriptInterfaceScheme(String scheme) {
@@ -78,6 +85,11 @@ public class Cocos2dxWebView extends WebView {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+            
+            if(!view.getSettings().getLoadsImagesAutomatically()) {
+            	view.getSettings().setLoadsImagesAutomatically(true);
+            }
+            
             Cocos2dxWebViewHelper._didFinishLoading(mViewTag, url);
             mPd.dismiss();
         }

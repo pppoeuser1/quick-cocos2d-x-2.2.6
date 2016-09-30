@@ -132,6 +132,7 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
         self.uiWebView.delegate = self;
         self.uiWebView.opaque = NO;
         self.uiWebView.backgroundColor = [UIColor clearColor];
+        self.uiWebView.scrollView.bounces = NO;
         
         activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
         [activity setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -241,7 +242,9 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     if (self.didFinishLoading) {
         NSString *url = [[webView.request URL] absoluteString];
-        self.didFinishLoading([url UTF8String]);
+        if (url) {
+            self.didFinishLoading([url UTF8String]);
+        }
     }
     
     [activity stopAnimating];

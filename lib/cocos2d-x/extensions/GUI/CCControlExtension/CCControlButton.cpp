@@ -58,6 +58,8 @@ CCControlButton::CCControlButton()
 , m_backgroundSpriteDispatchTable(NULL)
 , m_marginV(CCControlButtonMarginTB)
 , m_marginH(CCControlButtonMarginLR)
+, m_bPlayDefalutEffect(true)
+, m_effectFile("sound/clickbtn.mp3")
 {
 
 }
@@ -683,6 +685,16 @@ void CCControlButton::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     }
 }
 
+void CCControlButton::setIsPlayDefaultEffect(bool b)
+{
+    m_bPlayDefalutEffect = b;
+}
+
+void CCControlButton::setEffectFile(const char *name)
+{
+    m_effectFile = name;
+}
+
 void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
     m_isPushed = false;
@@ -693,7 +705,10 @@ void CCControlButton::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
     {
         sendActionsForControlEvents(CCControlEventTouchUpInside);
         
-        CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("sound/clickbtn.mp3");
+        if (m_bPlayDefalutEffect)
+        {
+            CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(m_effectFile.c_str());
+        }
     }
     else
     {

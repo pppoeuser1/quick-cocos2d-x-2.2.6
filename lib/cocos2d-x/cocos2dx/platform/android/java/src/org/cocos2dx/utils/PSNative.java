@@ -222,6 +222,16 @@ public class PSNative {
 	public static String getDeviceName() {
 		return Build.USER;
 	}
+	
+	public static String getDeviceBrandAndModel(){
+		return Build.BRAND+" "+Build.MODEL;
+	}
+	public static String getDeviceModel(){
+		return Build.MODEL;
+	}
+	public static String getDeviceBrand(){
+		return Build.BRAND;
+	}
 
 	public static void vibrate(int time) {
 		if (mVibrator == null) {

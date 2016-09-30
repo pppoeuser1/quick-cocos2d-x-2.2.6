@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Sat Aug 15 12:40:43 2015.
+** Generated automatically by tolua++-1.0.92 on Tue Sep 20 12:18:09 2016.
 */
 
 /****************************************************************************
@@ -50943,6 +50943,72 @@ static int tolua_Cocos2d_CCControlButton_setBackgroundSpriteFrameForState00(lua_
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setIsPlayDefaultEffect of class  CCControlButton */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCControlButton_setIsPlayDefaultEffect00
+static int tolua_Cocos2d_CCControlButton_setIsPlayDefaultEffect00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCControlButton",0,&tolua_err) ||
+     !tolua_isboolean(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCControlButton* self = (CCControlButton*)  tolua_tousertype(tolua_S,1,0);
+  bool b = ((bool)  tolua_toboolean(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setIsPlayDefaultEffect'", NULL);
+#endif
+  {
+   self->setIsPlayDefaultEffect(b);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setIsPlayDefaultEffect'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setEffectFile of class  CCControlButton */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCControlButton_setEffectFile00
+static int tolua_Cocos2d_CCControlButton_setEffectFile00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCControlButton",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  CCControlButton* self = (CCControlButton*)  tolua_tousertype(tolua_S,1,0);
+  const char* name = ((const char*)  tolua_tostring(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setEffectFile'", NULL);
+#endif
+  {
+   self->setEffectFile(name);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setEffectFile'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: setColor of class  CCControlColourPicker */
 #ifndef TOLUA_DISABLE_tolua_Cocos2d_CCControlColourPicker_setColor00
 static int tolua_Cocos2d_CCControlColourPicker_setColor00(lua_State* tolua_S)
@@ -60559,6 +60625,8 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"getBackgroundSpriteForState",tolua_Cocos2d_CCControlButton_getBackgroundSpriteForState00);
    tolua_function(tolua_S,"setBackgroundSpriteForState",tolua_Cocos2d_CCControlButton_setBackgroundSpriteForState00);
    tolua_function(tolua_S,"setBackgroundSpriteFrameForState",tolua_Cocos2d_CCControlButton_setBackgroundSpriteFrameForState00);
+   tolua_function(tolua_S,"setIsPlayDefaultEffect",tolua_Cocos2d_CCControlButton_setIsPlayDefaultEffect00);
+   tolua_function(tolua_S,"setEffectFile",tolua_Cocos2d_CCControlButton_setEffectFile00);
   tolua_endmodule(tolua_S);
   tolua_cclass(tolua_S,"CCControlColourPicker","CCControlColourPicker","CCControl",NULL);
   tolua_beginmodule(tolua_S,"CCControlColourPicker");
@@ -60902,6 +60970,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_dobuffer(tolua_S,(char*)B,sizeof(B),"tolua: embedded Lua code 1");
    lua_settop(tolua_S, top);
   } /* end of embedded lua code */
+
  tolua_endmodule(tolua_S);
  return 1;
 }
