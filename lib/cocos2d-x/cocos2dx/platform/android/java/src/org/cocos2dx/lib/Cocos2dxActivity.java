@@ -29,10 +29,54 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.view.ViewGroup;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
+
+///////////qinxugao
+class ResizeLayout extends FrameLayout{
+    private  boolean mEnableForceDoLayout = false;
+
+    public ResizeLayout(Context context){
+        super(context);
+    }
+
+    public ResizeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public void setEnableForceDoLayout(boolean flag){
+        mEnableForceDoLayout = flag;
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        if(mEnableForceDoLayout){
+            /*This is a hot-fix for some android devices which don't do layout when the main window
+            * is paned.  We refersh the layout in 24 frames per seconds.
+            * When the editBox is lose focus or when user begin to type, the do layout is disabled.
+            */
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //Do something after 100ms
+                    requestLayout();
+                    invalidate();
+                }
+            }, 1000 / 24);
+
+        }
+
+    }
+
+}
+
 
 public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelperListener {
 	// ===========================================================
@@ -50,6 +94,8 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	private Cocos2dxHandler mHandler;
 	private Cocos2dxWebViewHelper mWebViewHelper = null;
 	private static Context sContext = null;
+	//qinxugao
+	private Cocos2dxEditBoxHelper mEditBoxHelper = null;
 	
 	public static Context getContext() {
 		return sContext;
@@ -70,6 +116,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     	if(mWebViewHelper == null){
             mWebViewHelper = new Cocos2dxWebViewHelper(mFrameLayout);
         }
+
+        if(mEditBoxHelper == null){
+            mEditBoxHelper = new Cocos2dxEditBoxHelper(mFrameLayout);
+        }        
 
 		Cocos2dxHelper.init(this, this);
 	}
@@ -118,25 +168,38 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	public void runOnGLThread(final Runnable pRunnable) {
 		this.mGLSurfaceView.queueEvent(pRunnable);
 	}
-	protected static FrameLayout mFrameLayout;
+	//protected static FrameLayout mFrameLayout;
+	protected ResizeLayout mFrameLayout = null;
 	// ===========================================================
 	// Methods
 	// ===========================================================
 	public void init() {
 		
     	// FrameLayout
-        ViewGroup.LayoutParams framelayout_params =
-            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                                       ViewGroup.LayoutParams.FILL_PARENT);
-        mFrameLayout = new FrameLayout(this);
-        mFrameLayout.setLayoutParams(framelayout_params);
+        //ViewGroup.LayoutParams framelayout_params =
+        //    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+        //                               ViewGroup.LayoutParams.FILL_PARENT);
+        //mFrameLayout = new FrameLayout(this);          
+        //mFrameLayout.setLayoutParams(framelayout_params);
 
         // Cocos2dxEditText layout
+        //ViewGroup.LayoutParams edittext_layout_params =
+        //    new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+        //                               ViewGroup.LayoutParams.WRAP_CONTENT);
+        //Cocos2dxEditText edittext = new Cocos2dxEditText(this);
+        //edittext.setLayoutParams(edittext_layout_params);
+        // Cocos2dxEditText layout
+        // FrameLayout
+        ViewGroup.LayoutParams framelayout_params =
+            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                       ViewGroup.LayoutParams.MATCH_PARENT);
+        mFrameLayout = new ResizeLayout(this);     
+        mFrameLayout.setLayoutParams(framelayout_params);                               
         ViewGroup.LayoutParams edittext_layout_params =
-            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-                                       ViewGroup.LayoutParams.WRAP_CONTENT);
-        Cocos2dxEditText edittext = new Cocos2dxEditText(this);
-        edittext.setLayoutParams(edittext_layout_params);
+            new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                       ViewGroup.LayoutParams.WRAP_CONTENT);            
+        Cocos2dxEditBox edittext = new Cocos2dxEditBox(this);
+        edittext.setLayoutParams(edittext_layout_params);            
 
         // ...add to FrameLayout
         mFrameLayout.addView(edittext);
@@ -175,6 +238,10 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
       }
       Log.d(TAG, "isEmulator=" + isEmulator);
       return isEmulator;
+   }
+   
+   public Cocos2dxGLSurfaceView getGLSurfaceView(){
+       return  mGLSurfaceView;
    }
 
 	// ===========================================================

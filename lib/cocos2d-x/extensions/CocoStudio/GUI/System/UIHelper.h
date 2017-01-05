@@ -73,6 +73,8 @@ public:
     
     /*temp action*/
     static Widget* seekActionWidgetByActionTag(Widget* root, int tag);
+    
+    static CCRect convertBoundingBoxToScreen(CCNode* node);
 };
 }
 

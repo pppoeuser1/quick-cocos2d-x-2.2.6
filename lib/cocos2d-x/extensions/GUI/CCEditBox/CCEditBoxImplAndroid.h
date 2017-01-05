@@ -31,18 +31,22 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 
 #include "ExtensionMacros.h"
-#include "CCEditBoxImpl.h"
-
+//#include "CCEditBoxImpl.h"
+#include "UIEditBoxImpl-common.h"
 NS_CC_EXT_BEGIN
 
 class CCEditBox;
 
-class CCEditBoxImplAndroid : public CCEditBoxImpl
+class Label;
+
+
+class CCEditBoxImplAndroid : public EditBoxImplCommon
 {
 public:
     CCEditBoxImplAndroid(CCEditBox* pEditText);
     virtual ~CCEditBoxImplAndroid();
     
+    /*
     virtual bool initWithSize(const CCSize& size);
     virtual void setFont(const char* pFontName, int fontSize);
     virtual void setFontColor(const ccColor3B& color);
@@ -62,30 +66,56 @@ public:
     virtual void setVisible(bool visible);
     virtual void setContentSize(const CCSize& size);
 	virtual void setAnchorPoint(const CCPoint& anchorPoint);
+    */
     /**
      *  @js NA
      */
-    virtual void visit(void);
-	virtual void onEnter(void);
-    virtual void doAnimationWhenKeyboardMove(float duration, float distance);
-    virtual void openKeyboard();
-    virtual void closeKeyboard();
+    //virtual void visit(void);
+	//virtual void onEnter(void);
+    //virtual void doAnimationWhenKeyboardMove(float duration, float distance);
+    //virtual void openKeyboard();
+    //virtual void closeKeyboard();
     
-private:
-    CCLabelTTF* m_pLabel;
-    CCLabelTTF* m_pLabelPlaceHolder;
-    EditBoxInputMode    m_eEditBoxInputMode;
-    EditBoxInputFlag    m_eEditBoxInputFlag;
-    KeyboardReturnType  m_eKeyboardReturnType;
-    
-    std::string m_strText;
-    std::string m_strPlaceHolder;
-    
-    ccColor3B m_colText;
-    ccColor3B m_colPlaceHolder;
 
-    int   m_nMaxLength;
-    CCSize m_EditSize;
+
+    virtual bool isEditing() override;
+    virtual void createNativeControl(const Rect& frame) override;
+    virtual void setNativeFont(const char* pFontName, int fontSize) override;
+    virtual void setNativeFontColor(const Color3B& color) override;
+    virtual void setNativePlaceholderFont(const char* pFontName, int fontSize) override;
+    virtual void setNativePlaceholderFontColor(const Color3B& color) override;
+    virtual void setNativeInputMode(EditBoxInputMode inputMode) override;
+    virtual void setNativeInputFlag(EditBoxInputFlag inputFlag) override;
+    virtual void setNativeReturnType(KeyboardReturnType returnType)override;
+    virtual void setNativeText(const char* pText) override;
+    virtual void setNativePlaceHolder(const char* pText) override;
+    virtual void setNativeVisible(bool visible) override;
+    virtual void updateNativeFrame(const Rect& rect) override;
+    virtual void setNativeContentSize(const Size& size) override {};
+    virtual const char* getNativeDefaultFontName() override;
+    virtual void nativeOpenKeyboard() override;
+    virtual void nativeCloseKeyboard() override;
+    virtual void setNativeMaxLength(int maxLength);
+
+private:
+    // CCLabelTTF* m_pLabel;
+    // CCLabelTTF* m_pLabelPlaceHolder;
+    // EditBoxInputMode    m_eEditBoxInputMode;
+    // EditBoxInputFlag    m_eEditBoxInputFlag;
+    // KeyboardReturnType  m_eKeyboardReturnType;
+    
+    // std::string m_strText;
+    // std::string m_strPlaceHolder;
+    
+    // ccColor3B m_colText;
+    // ccColor3B m_colPlaceHolder;
+
+    // int   m_nMaxLength;
+    // CCSize m_EditSize;
+
+    virtual void doAnimationWhenKeyboardMove(float duration, float distance)override {}
+
+    int _editBoxIndex;
 };
 
 

@@ -14,7 +14,9 @@ LOCAL_SRC_FILES := \
     extra/platform/android/CCNativeAndroid.cpp \
     extra/platform/android/CCNetworkAndroid.cpp \
     extra/luabinding/cocos2dx_extra_luabinding.cpp \
-    extra/luabinding/CZHelperFunc_luabinding.cpp
+    extra/luabinding/CZHelperFunc_luabinding.cpp \
+    ConvertUTF/ConvertUTF.c \
+    ConvertUTF/ConvertUTFWrapper.cpp       
 
 LOCAL_SRC_FILES += \
     extra/platform/android/CCHTTPRequestAndroid.cpp \
@@ -41,7 +43,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/extra/luabinding \
                            $(LOCAL_PATH)/chipmunk/include \
                            $(LOCAL_PATH)/chipmunk/cocos2dx_support \
-                           $(LOCAL_PATH)/chipmunk/luabinding
+                           $(LOCAL_PATH)/chipmunk/luabinding \
+                           $(LOCAL_PATH)/ConvertUTF
 
 LOCAL_C_INCLUDES := $(LOCAL_EXPORT_C_INCLUDES) \
     LOCAL_PATH/chipmunk/cocos2dx_support \

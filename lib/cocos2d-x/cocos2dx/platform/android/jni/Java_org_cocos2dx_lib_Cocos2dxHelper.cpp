@@ -5,12 +5,14 @@
 #include "JniHelper.h"
 #include "cocoa/CCString.h"
 #include "Java_org_cocos2dx_lib_Cocos2dxHelper.h"
-
+#include "support/ccUTF8.h"
 
 #define  LOG_TAG    "Java_org_cocos2dx_lib_Cocos2dxHelper.cpp"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 
 #define  CLASS_NAME "org/cocos2dx/lib/Cocos2dxHelper"
+#define  EDITBOX_CLASS_NAME "org/cocos2dx/lib/Cocos2dxEditBoxHelper"
+
 
 static EditTextCallback s_pfEditTextCallback = NULL;
 static EditBoxCallbackActionSend s_pfeditBoxCallbackActionSend = NULL;
@@ -86,6 +88,11 @@ void releaseEdit(){
     s_pfEditTextCallback = NULL;
     s_pfeditBoxCallbackActionSend = NULL;
     s_ctx = NULL;
+}
+
+void setTextSendCallback(EditBoxCallbackActionSend pfeditBoxCallbackActionSend)
+{
+    s_pfeditBoxCallbackActionSend = pfeditBoxCallbackActionSend;
 }
 
 void showEditTextDialogJNI(const char* pszTitle, const char* pszMessage, int nInputMode, int nInputFlag, int nReturnType, int nMaxLength, EditTextCallback pfEditTextCallback,EditBoxCallbackActionSend pfeditBoxCallbackActionSend, void* ctx) {
@@ -369,3 +376,198 @@ void setStringForKeyJNI(const char* pKey, const char* value)
         t.env->DeleteLocalRef(stringArg2);
     }
 }
+
+/////////////////////////////////////editbox
+
+int addEditBoxJNI(int left, int top, int width, int height, float scaleX){
+    JniMethodInfo t;
+
+    int ret = -1;
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "createEditBox", "(IIIIF)I")) {
+        ret = t.env->CallStaticIntMethod(t.classID, t.methodID, left, top, width, height, scaleX);
+        t.env->DeleteLocalRef(t.classID);
+    }
+    return ret;
+}
+
+void removeEditBoxJNI(int index)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "removeEditBox", "(I)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setEditBoxViewRectJNI(int index, int left, int top, int width, int height)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setEditBoxViewRect", "(IIIII)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, left, top, width, height);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setMaxLengthJNI(int index, int maxLength)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setMaxLength", "(II)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, maxLength);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void openEditBoxKeyboardJNI(int index)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "openKeyboard", "(I)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void closeEditBoxKeyboardJNI(int index)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "closeKeyboard", "(I)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setVisibleEditBoxJNI(int index, bool visibility)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setVisible", "(IZ)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, visibility);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setReturnTypeEditBoxJNI(int index, int returnType)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setReturnType", "(II)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, returnType);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setInputFlagEditBoxJNI(int index, int returnType)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setInputFlag", "(II)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, returnType);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setInputModeEditBoxJNI(int index, int inputMode)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setInputMode", "(II)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID, index, inputMode);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setTextEditBoxJNI(int index, const char* text)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setText", "(ILjava/lang/String;)V")) {
+        jstring stringText = StringUtils::newStringUTFJNI(t.env,text);
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,index, stringText);
+        t.env->DeleteLocalRef(stringText);
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setFontEditBoxJNI(int index, const char* fontName, float fontSize)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setFont", "(ILjava/lang/String;F)V")) {
+        jstring stringText = StringUtils::newStringUTFJNI(t.env,fontName);
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,index, stringText, fontSize);
+
+        t.env->DeleteLocalRef(t.classID);
+        t.env->DeleteLocalRef(stringText);
+    }
+}
+
+void setFontColorEditBoxJNI(int index, int red, int green, int blue, int alpha)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setFontColor", "(IIIII)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,index, red, green, blue, alpha);
+
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void setPlaceHolderTextEditBoxJNI(int index, const char* text)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setPlaceHolderText", "(ILjava/lang/String;)V")) {
+        jstring stringText = StringUtils::newStringUTFJNI(t.env,text);
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,index, stringText);
+
+        t.env->DeleteLocalRef(t.classID);
+        t.env->DeleteLocalRef(stringText);
+    }
+
+}
+
+void setPlaceHolderTextColorEditBoxJNI(int index, int red, int green, int blue, int alpha)
+{
+    JniMethodInfo t;
+
+    if (JniHelper::getStaticMethodInfo(t, EDITBOX_CLASS_NAME, "setPlaceHolderTextColor", "(IIIII)V")) {
+        t.env->CallStaticVoidMethod(t.classID, t.methodID,index, red, green, blue, alpha);
+
+        t.env->DeleteLocalRef(t.classID);
+    }
+}
+
+void conversionEncodingJNI(const char* src, int byteSize, const char* fromCharset, char* dst, const char* newCharset)
+{
+    JniMethodInfo methodInfo;
+
+    if (JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "conversionEncoding", "([BLjava/lang/String;Ljava/lang/String;)[B")) {
+        jbyteArray strArray = methodInfo.env->NewByteArray(byteSize);
+        methodInfo.env->SetByteArrayRegion(strArray, 0, byteSize, reinterpret_cast<const jbyte*>(src));
+
+        jstring stringArg1 = methodInfo.env->NewStringUTF(fromCharset);
+        jstring stringArg2 = methodInfo.env->NewStringUTF(newCharset);
+
+        jbyteArray newArray = (jbyteArray)methodInfo.env->CallStaticObjectMethod(methodInfo.classID, methodInfo.methodID, strArray, stringArg1, stringArg2);
+        jsize theArrayLen = methodInfo.env->GetArrayLength(newArray);
+        methodInfo.env->GetByteArrayRegion(newArray, 0, theArrayLen, (jbyte*)dst);
+
+        methodInfo.env->DeleteLocalRef(strArray);
+        methodInfo.env->DeleteLocalRef(stringArg1);
+        methodInfo.env->DeleteLocalRef(stringArg2);
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
+    }
+}
+
+
+
+
+
+
+
+
+

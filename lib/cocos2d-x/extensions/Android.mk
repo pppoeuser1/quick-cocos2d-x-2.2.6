@@ -13,6 +13,7 @@ LOCAL_SRC_FILES := \
     GUI/CCControlExtension/CCControlUtils.cpp \
     GUI/CCEditBox/CCEditBox.cpp \
     GUI/CCEditBox/CCEditBoxImplAndroid.cpp \
+    GUI/CCEditBox/UIEditBoxImpl-common.cpp \
     ProjectConfig/SimulatorConfig.cpp \
     GUI/CCControlExtension/CCControlColourPicker.cpp \
     GUI/CCControlExtension/CCControlHuePicker.cpp \

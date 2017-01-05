@@ -121,6 +121,26 @@ Widget* UIHelper::seekActionWidgetByActionTag(Widget* root, int tag)
 	return NULL;
 }
 
+
+CCRect UIHelper::convertBoundingBoxToScreen(CCNode* node)
+{
+    auto director = CCDirector::sharedDirector();
+    auto glView = director->getOpenGLView();
+    auto frameSize = glView->getFrameSize();
+    
+    auto winSize = director->getWinSize();
+    auto leftBottom = node->convertToWorldSpace(CCPoint(0,0));
+    
+    auto contentSize = node->getContentSize();
+    auto rightTop = node->convertToWorldSpace(CCPoint(contentSize.width, contentSize.height));
+    
+    auto uiLeft = frameSize.width / 2 + (leftBottom.x - winSize.width / 2 ) * glView->getScaleX();
+    auto uiTop = frameSize.height /2 - (rightTop.y - winSize.height / 2) * glView->getScaleY();
+    auto uiWidth = (rightTop.x - leftBottom.x) * glView->getScaleX();
+    auto uiHeight = (rightTop.y - leftBottom.y) * glView->getScaleY();
+    
+    return CCRect(uiLeft, uiTop, uiWidth, uiHeight);
+}
 }
 
 NS_CC_END

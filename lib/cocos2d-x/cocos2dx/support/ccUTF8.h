@@ -29,86 +29,134 @@
 #include "platform/CCPlatformMacros.h"
 #include <vector>
 #include <string>
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#include "platform/android/jni/JniHelper.h"
+#endif
 NS_CC_BEGIN
 
+namespace StringUtils {
+    
+    /**
+     *  @brief Converts utf8 string to utf16 string.
+     *  @param utf8 The utf8 string to be converted.
+     *  @param outUtf16 The output utf16 string.
+     *  @return True if succeed, otherwise false.
+     *  @note Please check the return value before using \p outUtf16
+     *  e.g.
+     *  @code
+     *    std::u16string utf16;
+     *    bool ret = StringUtils::UTF8ToUTF16("你好hello", utf16);
+     *    if (ret) {
+     *        do_some_thing_with_utf16(utf16);
+     *    }
+     *  @endcode
+     */
+    CC_DLL bool UTF8ToUTF16(const std::string& utf8, std::u16string& outUtf16);
+    
+    /**
+     *  @brief Converts utf16 string to utf8 string.
+     *  @param utf16 The utf16 string to be converted.
+     *  @param outUtf8 The output utf8 string.
+     *  @return True if succeed, otherwise false.
+     *  @note Please check the return value before using \p outUtf8
+     *  e.g.
+     *  @code
+     *    std::string utf8;
+     *    bool ret = StringUtils::UTF16ToUTF8(u"\u4f60\u597d", utf16);
+     *    if (ret) {
+     *        do_some_thing_with_utf8(utf8);
+     *    }
+     *  @endcode
+     */
+    CC_DLL bool UTF16ToUTF8(const std::u16string& utf16, std::string& outUtf8);
+    
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    
+    
+    /**
+     *  @brief convert jstring to utf8 std::string,  same function with env->getStringUTFChars.
+     *         because getStringUTFChars can not pass special emoticon
+     *  @param env   The JNI Env
+     *  @param srcjStr The jstring which want to convert
+     *  @param ret   True if the conversion succeeds and the ret pointer isn't null
+     *  @returns the result of utf8 string
+     */
+    CC_DLL std::string getStringUTFCharsJNI(JNIEnv* env, jstring srcjStr, bool* ret = nullptr);
+    
+    /**
+     *  @brief create a jstring with utf8 std::string, same function with env->newStringUTF
+     *         because newStringUTF can not convert special emoticon
+     *  @param env   The JNI Env
+     *  @param srcjStr The std::string which want to convert
+     *  @param ret     True if the conversion succeeds and the ret pointer isn't null
+     *  @returns the result of jstring,the jstring need to DeleteLocalRef(jstring);
+     */
+    CC_DLL jstring newStringUTFJNI(JNIEnv* env, std::string utf8Str, bool* ret = nullptr);
+#endif
+    
+    /**
+     *  @brief Trims the unicode spaces at the end of char16_t vector.
+     */
+    CC_DLL void trimUTF16Vector(std::vector<char16_t>& str);
+    
+    /**
+     *  @brief Whether the character is a whitespace character.
+     *  @param ch    The unicode character.
+     *  @returns     Whether the character is a white space character.
+     *
+     *  @see http://en.wikipedia.org/wiki/Whitespace_character#Unicode
+     *
+     */
+    CC_DLL bool isUnicodeSpace(char16_t ch);
+    
+    /**
+     *  @brief Whether the character is a Chinese/Japanese/Korean character.
+     *  @param ch    The unicode character.
+     *  @returns     Whether the character is a Chinese character.
+     *
+     *  @see http://www.searchtb.com/2012/04/chinese_encode.html
+     *  @see http://tieba.baidu.com/p/748765987
+     *
+     */
+    CC_DLL bool isCJKUnicode(char16_t ch);
+    
+    /**
+     *  @brief Returns the length of the string in characters.
+     *  @param utf8 An UTF-8 encoded string.
+     *  @returns The length of the string in characters.
+     */
+    CC_DLL long getCharacterCountInUTF8String(const std::string& utf8);
+    
+    /**
+     *  @brief Gets the index of the last character that is not equal to the character given.
+     *  @param str   The string to be searched.
+     *  @param c     The character to be searched for.
+     *  @returns The index of the last character that is not \p c.
+     */
+    CC_DLL unsigned int getIndexOfLastNotChar16(const std::vector<char16_t>& str, char16_t c);
+    
+    /**
+     *  @brief Gets char16_t vector from a given utf16 string.
+     */
+    CC_DLL std::vector<char16_t> getChar16VectorFromUTF16String(const std::u16string& utf16);
+    
+} // namespace StringUtils {
 
-/** Trims the space characters at the end of UTF8 string */
-CC_DLL void cc_utf8_trim_ws(std::vector<unsigned short>* str);
-
-/**
- * Whether the character is a whitespace character.
- *
- * @param ch    the unicode character
- * @returns     whether the character is a white space character.
- *
- * @see http://en.wikipedia.org/wiki/Whitespace_character#Unicode
- * */
-CC_DLL bool isspace_unicode(unsigned short ch);
-
-/**
- * Whether the character is a Chinese/Japanese/Korean character.
- *
- * @param ch    the unicode character
- * @returns     whether the character is a Chinese character.
- *
- * @see http://www.searchtb.com/2012/04/chinese_encode.html
- * @see http://tieba.baidu.com/p/748765987
- * */
-CC_DLL bool iscjk_unicode(unsigned short ch);
 
 
-/**
- * Returns the character count in UTF16 string
- * @param str pointer to the start of a UTF-16 encoded string. It must be an NULL terminal UTF8 string.
- */
+
 CC_DLL int cc_wcslen(const unsigned short* str);
-
-/**
- * Returns the length of the string in characters.
- *
- * @param p pointer to the start of a UTF-8 encoded string. It must be an NULL terminal UTF8 string.
- *
- * @returns the length of the string in characters
- **/
-CC_DLL long cc_utf8_strlen (const char * p);
-
-/**
- * Find the last character that is not equal to the character given.
- *
- * @param str   the string to be searched.
- * @param c     the character to be searched for.
- *
- * @returns the index of the last character that is not \p c.
- * */
+CC_DLL void cc_utf8_trim_ws(std::vector<unsigned short>* str);
+CC_DLL bool isspace_unicode(unsigned short ch);
+CC_DLL bool iscjk_unicode(unsigned short ch);
+CC_DLL long cc_utf8_strlen (const char * p, int max = -1);
 CC_DLL unsigned int cc_utf8_find_last_not_char(std::vector<unsigned short>& str, unsigned short c);
-
-/** Gets UTF16 character vector from UTF16 string */
 CC_DLL std::vector<unsigned short> cc_utf16_vec_from_utf16_str(const unsigned short* str);
-
-/**
- * Creates an utf8 string from a c string. The result will be null terminated.
- *
- * @param utf8 pointer to the start of a C string. It must be an NULL terminal UTF8 string.
- * @param outUTF16CharacterCount The character count in the return UTF16 string.
- *
- * @returns the newly created utf16 string, it must be released with `delete[]`,
- *          If an error occurs, %NULL will be returned.
- * */
 CC_DLL unsigned short* cc_utf8_to_utf16(const char* utf8, int* outUTF16CharacterCount = NULL);
-
-/**
- * Converts a string from UTF-16 to UTF-8. The result will be null terminated.
- *
- * @param utf16 an UTF-16 encoded string, It must be an NULL terminal UTF16 string.
- * @param outUTF8CharacterCount The character count in the return UTF8 string.
- *
- * @returns a pointer to a newly allocated UTF-8 string. This value must be
- *          released with `delete[]`. If an error occurs, %NULL will be returned.
- **/
-CC_DLL char* cc_utf16_to_utf8(const unsigned short* utf16, int* outUTF8CharacterCount = NULL);
-
-
+CC_DLL char * cc_utf16_to_utf8 (const unsigned short  *str,
+              int             len = -1,
+              long            *items_read = nullptr,
+              long            *items_written = nullptr);
 NS_CC_END
 
 #endif /* defined(__cocos2dx__ccUTF8__) */

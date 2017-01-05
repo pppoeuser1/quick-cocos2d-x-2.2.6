@@ -80,8 +80,8 @@ CCEditBox::CCEditBox(void)
 
 CCEditBox::~CCEditBox(void)
 {
-    CC_SAFE_DELETE(m_pEditBoxImpl);
-    unregisterScriptEditBoxHandler();
+    CC_SAFE_DELETE(m_pEditBoxImpl); 
+    unregisterScriptEditBoxHandler();  
 }
 
 
