@@ -24,7 +24,6 @@ THE SOFTWARE.
 package org.cocos2dx.lib;
 
 import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
@@ -36,7 +35,7 @@ import android.view.ViewGroup;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
-
+import org.cocos2dx.lib515.Expand;
 ///////////qinxugao
 class ResizeLayout extends FrameLayout{
     private  boolean mEnableForceDoLayout = false;
@@ -122,6 +121,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         }        
 
 		Cocos2dxHelper.init(this, this);
+        Expand.getInstance().setActivity(this);
 	}
 
 	// ===========================================================

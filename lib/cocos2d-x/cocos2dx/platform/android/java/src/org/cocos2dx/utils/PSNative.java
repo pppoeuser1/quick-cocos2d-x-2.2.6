@@ -1,5 +1,8 @@
 package org.cocos2dx.utils;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
 import java.util.Vector;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
@@ -7,13 +10,21 @@ import org.cocos2dx.lib.Cocos2dxActivity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.BatteryManager;
 import android.os.Build;
+import android.os.Looper;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
 import android.view.ViewGroup;
@@ -22,7 +33,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 
-public class PSNative {
+public class PSNative {	
 	static Cocos2dxActivity mContext = null;
 	static TelephonyManager mTelephonyManager = null;
 	static Vibrator mVibrator = null;
@@ -34,6 +45,8 @@ public class PSNative {
 	static Vector<PSDialog> mShowingDialogs = null;
 
 	static Drawable mAppIcon = null;
+	
+	static Intent batteryIntent = null;
 
 	static PSDialog.PSDialogListener mPSDialogListener = new PSDialog.PSDialogListener() {
 		@Override
@@ -50,6 +63,8 @@ public class PSNative {
 				.getSystemService(Context.VIBRATOR_SERVICE);
 
 		mShowingDialogs = new Vector<PSDialog>();
+		//检测电池电量
+		batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 	}
 
 	public static void setAppIcon(Drawable icon) {
@@ -232,6 +247,58 @@ public class PSNative {
 	public static String getDeviceBrand(){
 		return Build.BRAND;
 	}
+	
+	public static String getDeviceSystemVersion(){
+    	return Build.VERSION.RELEASE;
+    }
+	
+	public static String getDeviceId(){
+    	//DEVICE_ID 非手机无法获得
+    	TelephonyManager tm = (TelephonyManager)mContext.getSystemService(Context.TELEPHONY_SERVICE);
+    	if(tm!=null){
+    		try{
+    			String deviceId = tm.getDeviceId();    			
+    			if(deviceId!=null){
+        			return deviceId;
+        		}
+    		}catch(Exception e){
+    			e.printStackTrace();
+    		}
+    	}
+    	
+    	//cpu序列号
+    	String cpuSerial = getIdentifierByCpu();
+    	if(cpuSerial!=null && cpuSerial!=""){
+    		return cpuSerial;
+    	}
+    	
+    	//mac地址 如果Wifi关闭的时候，硬件设备可能无法返回。
+    	String macAdd = getMacAddress();
+    	if(macAdd!=null && macAdd!=""){
+    		return macAdd;
+    	}        	
+
+    	return "null";
+    }
+    public static String getIdentifierByCpu() {
+        String identifier = null;
+        String cmdStr = "cat /proc/cpuinfo";
+        Process process;
+        try {
+          process = Runtime.getRuntime().exec(cmdStr);
+          InputStreamReader reader = new InputStreamReader(process.getInputStream());
+          LineNumberReader lineReader = new LineNumberReader(reader);
+          String line = "";
+          while ((line = lineReader.readLine()) != null) {
+            if (line.startsWith("Serial")) {
+              identifier = line.split(":")[1];              
+            }
+          }
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        return identifier;
+    }
 
 	public static void vibrate(int time) {
 		if (mVibrator == null) {
@@ -246,6 +313,62 @@ public class PSNative {
 		}
 		mVibrator.vibrate(pattern, repeatcout);
 	}
+	
+	//复制到剪切板
+    public static void copylua(final String value){
+    	if(Looper.myLooper()==null){
+    		Looper.prepare();
+    	}
+    	android.text.ClipboardManager c = (android.text.ClipboardManager) mContext.getSystemService(Context.CLIPBOARD_SERVICE);
+		c.setText(value);
+    }
+    
+    // 得到版本号
+    public static String getCurrentVersionName() throws NameNotFoundException{
+    	PackageManager manager = mContext.getPackageManager();
+    	if(manager!=null){
+    		PackageInfo info = manager.getPackageInfo(mContext.getPackageName(), 0);
+    		if(info!=null){
+    			return info.versionName;
+    		}
+    	}
+    	return "";
+    }   
+    // 得到版本号
+    public static int getCurrentVersionCode() throws NameNotFoundException{
+    	PackageManager manager = mContext.getPackageManager();
+    	PackageInfo info = manager.getPackageInfo(mContext.getPackageName(), 0);
+    	if(info!=null){
+    		return info.versionCode;
+    	}
+    	return 0;
+    }
+    
+    // 得到包名
+    public static String getPackageName(){
+    	String str = mContext.getPackageName();
+    	return str;
+    }
+
+    public static int getBatteryLevel(){
+        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+        if(level==-1 || scale==-1){
+        	return 50;
+        }
+        return level*100/scale;
+    }
+    
+    public static boolean isNetworkAvailable(){
+    	ConnectivityManager connectivity = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+    	if(connectivity != null){ 
+    		NetworkInfo info = connectivity.getActiveNetworkInfo();
+    		if(info!=null){
+    			return info.isAvailable();
+    		}
+    	}
+		return false;
+    }
 
 	public static Context getAppContext() {
 		return mContext;

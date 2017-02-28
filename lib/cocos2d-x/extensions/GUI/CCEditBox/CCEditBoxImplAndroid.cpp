@@ -220,10 +220,10 @@ NS_CC_EXT_BEGIN
 	
 // }
 
-// void CCEditBoxImplAndroid::setVisible(bool visible)
-// { // don't need to be implemented on android platform.
-
-// }
+void CCEditBoxImplAndroid::setVisible(bool visible)
+{ // don't need to be implemented on android platform.
+    setNativeVisible(visible);
+}
 
 // void CCEditBoxImplAndroid::setContentSize(const CCSize& size)
 // { // don't need to be implemented on android platform.
