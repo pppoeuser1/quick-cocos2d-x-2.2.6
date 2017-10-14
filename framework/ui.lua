@@ -159,6 +159,35 @@ function ui.newMenu(items)
     return menu
 end
 
+
+function ui.newMenuItem(params)
+  local listener = params.listener
+  local tag = params.tag
+  local x = params.x
+  local y = params.y
+  local sound = params.sound
+  local size = params.size
+  local item = CCMenuItem:create()
+  if item then
+    item:setContentSize(CCSize(size.width, size.height))
+    if type(listener) == "function" then
+      item:addNodeEventListener(cc.MENU_ITEM_CLICKED_EVENT, function(tag)
+        if sound then
+          audio.playSound(sound)
+        end
+        listener(tag)
+      end)
+    end
+    if x and y then
+      item:setPosition(x, y)
+    end
+    if tag then
+      item:setTag(tag)
+    end
+  end
+  return item
+end
+
 --[[--
 
 创建一个图像菜单项，并返回 CCMenuItemSprite 对象。
