@@ -64,7 +64,7 @@ public class PSNative {
 
 		mShowingDialogs = new Vector<PSDialog>();
 		//检测电池电量
-		batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+//		batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 	}
 
 	public static void setAppIcon(Drawable icon) {
@@ -350,14 +350,14 @@ public class PSNative {
     	return str;
     }
 
-    public static int getBatteryLevel(){
-        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
-        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
-        if(level==-1 || scale==-1){
-        	return 50;
-        }
-        return level*100/scale;
-    }
+//    public static int getBatteryLevel(){
+//        int level = batteryIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+//        int scale = batteryIntent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+//        if(level==-1 || scale==-1){
+//        	return 50;
+//        }
+//        return level*100/scale;
+//    }
     
     public static boolean isNetworkAvailable(){
     	ConnectivityManager connectivity = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
