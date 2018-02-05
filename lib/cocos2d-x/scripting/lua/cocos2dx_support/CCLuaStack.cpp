@@ -85,6 +85,8 @@ extern "C" {
 #include "LuaCocos2dDragonBones.h"
 #endif
 
+#include "LuaCocos2dSpine.h"
+
 // cocos2dx_extra luabinding
 #include "cocos2dx_extra_luabinding.h"
 #include "CZHelperFunc_luabinding.h"
@@ -168,6 +170,8 @@ bool CCLuaStack::init(void)
 #if CC_DRAGONBONES_ENABLED > 0
     luaopen_ExtensionsDragonBones(m_state);
 #endif
+    
+    luaopen_ExtensionsSpine(m_state);
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC || (CC_TARGET_PLATFORM == CC_PLATFORM_QT && defined(Q_OS_MAC)))
     CCLuaObjcBridge::luaopen_luaoc(m_state);

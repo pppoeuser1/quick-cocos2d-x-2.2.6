@@ -1,0 +1,6 @@
+$#include "spine/SkeletonAnimation.h"
+
+$using namespace spine;
+
+$pfile "extensions/spine/SkeletonRenderer_luabinding.tolua"
+$pfile "extensions/spine/SkeletonAnimation_luabinding.tolua"

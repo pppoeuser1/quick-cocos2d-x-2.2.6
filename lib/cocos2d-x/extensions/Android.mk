@@ -200,6 +200,39 @@ LOCAL_SRC_FILES += \
     CocoStudio/Trigger/TriggerObj.cpp
 endif
 
+
+LOCAL_SRC_FILES += \
+    spine/spAnimation.c \
+    spine/spAnimationState.c \
+    spine/AnimationStateData.c \
+    spine/Atlas.c \
+    spine/AtlasAttachmentLoader.c \
+    spine/Attachment.c \
+    spine/AttachmentLoader.c \
+    spine/spBone.c \
+    spine/spBoneData.c \
+    spine/BoundingBoxAttachment.c \
+    spine/spEvent.c \
+    spine/EventData.c \
+    spine/extension.c \
+    spine/IkConstraint.c \
+    spine/IkConstraintData.c \
+    spine/Json.c \
+    spine/MeshAttachment.c \
+    spine/RegionAttachment.c \
+    spine/Skeleton.c \
+    spine/SkeletonBounds.c \
+    spine/SkeletonData.c \
+    spine/SkeletonJson.c \
+    spine/Skin.c \
+    spine/SkinnedMeshAttachment.c \
+    spine/spSlot.c \
+    spine/spSlotData.c \
+    spine/spine-cocos2dx.cpp \
+    spine/SkeletonRenderer.cpp \
+    spine/SkeletonAnimation.cpp \
+    spine/PolygonBatch.cpp
+
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
 LOCAL_WHOLE_STATIC_LIBRARIES += cocos_lua_static
@@ -232,7 +265,8 @@ LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH) \
                            $(LOCAL_PATH)/CCArmature/external_tool/Json/lib_json \
                            $(LOCAL_PATH)/CCArmature/utils \
                            $(LOCAL_PATH)/filters \
-                           $(LOCAL_PATH)/DragonBones
+                           $(LOCAL_PATH)/DragonBones \
+                           $(LOCAL_PATH)/spine
 
 
 LOCAL_C_INCLUDES = $(LOCAL_EXPORT_C_INCLUDES)

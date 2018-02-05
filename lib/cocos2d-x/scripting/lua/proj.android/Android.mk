@@ -109,6 +109,9 @@ LOCAL_SRC_FILES += \
     ../cocos2dx_support/LuaCocos2dDragonBones.cpp
 endif
 
+LOCAL_SRC_FILES += \
+../cocos2dx_support/LuaCocos2dSpine.cpp
+
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../lua/lua-5.1.5/src \
                            $(LOCAL_PATH)/../tolua \
                            $(LOCAL_PATH)/../cocos2dx_support \
