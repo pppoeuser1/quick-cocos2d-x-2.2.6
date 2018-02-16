@@ -1,6 +1,6 @@
 /*
 ** Lua binding: ExtensionsSpine
-** Generated automatically by tolua++-1.0.92 on Mon Feb  5 19:59:10 2018.
+** Generated automatically by tolua++-1.0.92 on Tue Feb 13 13:25:45 2018.
 */
 
 /****************************************************************************
@@ -80,12 +80,13 @@ static void tolua_reg_types (lua_State* tolua_S)
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(ccBlendFunc)), "ccBlendFunc");
  tolua_usertype(tolua_S,"spEvent");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(spEvent)), "spEvent");
+ tolua_usertype(tolua_S,"spSlot");
+ toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(spSlot)), "spSlot");
  tolua_usertype(tolua_S,"spEventType");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(spEventType)), "spEventType");
  tolua_usertype(tolua_S,"spBone");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(spBone)), "spBone");
- tolua_usertype(tolua_S,"spSlot");
- toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(spSlot)), "spSlot");
+ 
  tolua_usertype(tolua_S,"CCBlendProtocol");
  toluafix_add_type_mapping(CLASS_HASH_CODE(typeid(CCBlendProtocol)), "CCBlendProtocol");
  tolua_usertype(tolua_S,"SkeletonRenderer");
@@ -1237,6 +1238,39 @@ static int tolua_ExtensionsSpine_SkeletonAnimation_onTrackEntryEvent00(lua_State
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: setEndHandler of class  SkeletonAnimation */
+#ifndef TOLUA_DISABLE_tolua_ExtensionsSpine_SkeletonAnimation_setEndHandler00
+static int tolua_ExtensionsSpine_SkeletonAnimation_setEndHandler00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"SkeletonAnimation",0,&tolua_err) ||
+     (tolua_isvaluenil(tolua_S,2,&tolua_err) || !toluafix_isfunction(tolua_S,2,"LUA_FUNCTION",0,&tolua_err)) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  SkeletonAnimation* self = (SkeletonAnimation*)  tolua_tousertype(tolua_S,1,0);
+  LUA_FUNCTION nFunID = (  toluafix_ref_function(tolua_S,2,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setEndHandler'", NULL);
+#endif
+  {
+   self->setEndHandler(nFunID);
+  }
+ }
+ return 0;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'setEndHandler'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* Open function */
 TOLUA_API int tolua_ExtensionsSpine_open (lua_State* tolua_S)
 {
@@ -1283,6 +1317,7 @@ TOLUA_API int tolua_ExtensionsSpine_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setEventListener",tolua_ExtensionsSpine_SkeletonAnimation_setEventListener00);
    tolua_function(tolua_S,"onAnimationStateEvent",tolua_ExtensionsSpine_SkeletonAnimation_onAnimationStateEvent00);
    tolua_function(tolua_S,"onTrackEntryEvent",tolua_ExtensionsSpine_SkeletonAnimation_onTrackEntryEvent00);
+   tolua_function(tolua_S,"setEndHandler",tolua_ExtensionsSpine_SkeletonAnimation_setEndHandler00);
   tolua_endmodule(tolua_S);
  tolua_endmodule(tolua_S);
  return 1;

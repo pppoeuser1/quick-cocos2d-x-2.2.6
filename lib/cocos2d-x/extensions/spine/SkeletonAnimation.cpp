@@ -33,6 +33,7 @@
 #include <spine/spine-cocos2dx.h>
 #include <spine/extension.h>
 #include <algorithm>
+#include "CCLuaEngine.h"
 
 USING_NS_CC;
 using std::min;
@@ -100,7 +101,9 @@ void SkeletonAnimation::initialize () {
 }
 
 SkeletonAnimation::SkeletonAnimation (spSkeletonData *skeletonData)
-		: SkeletonRenderer(skeletonData) {
+		: SkeletonRenderer(skeletonData)
+//    	m_LuaHandlerEnd(-1)
+    {
 	initialize();
 }
 
@@ -117,6 +120,12 @@ SkeletonAnimation::SkeletonAnimation (const char* skeletonDataFile, const char* 
 SkeletonAnimation::~SkeletonAnimation () {
 	if (ownsAnimationStateData) spAnimationStateData_dispose(state->data);
 	spAnimationState_dispose(state);
+
+    
+//    if (m_LuaHandlerEnd!=-1) {
+//        CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(m_LuaHandlerEnd);
+//        m_LuaHandlerEnd = -1;
+//    }
 }
 
 void SkeletonAnimation::update (float deltaTime) {
@@ -225,6 +234,27 @@ void SkeletonAnimation::setCompleteListener (spTrackEntry* entry, CompleteListen
 
 void SkeletonAnimation::setEventListener (spTrackEntry* entry, spine::EventListener listener) {
 	getListeners(entry)->eventListener = listener;
+}
+    
+void SkeletonAnimation::setEndHandler(int nFunID){
+//
+//    if (m_LuaHandlerEnd!=-1) {
+//        CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(m_LuaHandlerEnd);
+//        m_LuaHandlerEnd = -1;
+//    }
+//    m_LuaHandlerEnd = nFunID;
+//    
+//    this->endListener = [this] (int trackIndex) {
+//        if(m_LuaHandlerEnd!=-1){
+//            CCLuaStack* stack = CCLuaEngine::defaultEngine()->getLuaStack();
+//            stack->pushInt(trackIndex);
+//            stack->executeFunctionByHandler(m_LuaHandlerEnd, 1);
+//            stack->clean();
+//            
+//            CCLuaEngine::defaultEngine()->getLuaStack()->removeScriptHandler(m_LuaHandlerEnd);
+//            m_LuaHandlerEnd = -1;
+//        }
+//    };
 }
 
 }

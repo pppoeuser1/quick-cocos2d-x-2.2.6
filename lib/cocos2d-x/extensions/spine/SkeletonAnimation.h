@@ -81,6 +81,10 @@ public:
 
 	virtual void onAnimationStateEvent (int trackIndex, spEventType type, spEvent* event, int loopCount);
 	virtual void onTrackEntryEvent (int trackIndex, spEventType type, spEvent* event, int loopCount);
+    
+    void setEndHandler(int nFunID);
+    
+//    int m_LuaHandlerEnd;
 
 protected:
 	SkeletonAnimation ();
