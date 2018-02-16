@@ -59,7 +59,7 @@ CCControlButton::CCControlButton()
 , m_marginV(CCControlButtonMarginTB)
 , m_marginH(CCControlButtonMarginLR)
 , m_bPlayDefalutEffect(true)
-, m_effectFile("mp3/clickbtn.mp3")
+, m_effectFile("sound/clickbtn.mp3")
 {
 
 }
