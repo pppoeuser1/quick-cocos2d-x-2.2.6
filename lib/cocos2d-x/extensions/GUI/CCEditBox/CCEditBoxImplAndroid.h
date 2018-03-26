@@ -78,23 +78,23 @@ public:
     
 
 
-    virtual bool isEditing() override;
-    virtual void createNativeControl(const Rect& frame) override;
-    virtual void setNativeFont(const char* pFontName, int fontSize) override;
-    virtual void setNativeFontColor(const Color3B& color) override;
-    virtual void setNativePlaceholderFont(const char* pFontName, int fontSize) override;
-    virtual void setNativePlaceholderFontColor(const Color3B& color) override;
-    virtual void setNativeInputMode(EditBoxInputMode inputMode) override;
-    virtual void setNativeInputFlag(EditBoxInputFlag inputFlag) override;
-    virtual void setNativeReturnType(KeyboardReturnType returnType)override;
-    virtual void setNativeText(const char* pText) override;
-    virtual void setNativePlaceHolder(const char* pText) override;
-    virtual void setNativeVisible(bool visible) override;
-    virtual void updateNativeFrame(const Rect& rect) override;
-    virtual void setNativeContentSize(const Size& size) override {};
-    virtual const char* getNativeDefaultFontName() override;
-    virtual void nativeOpenKeyboard() override;
-    virtual void nativeCloseKeyboard() override;
+    virtual bool isEditing() ;
+    virtual void createNativeControl(const Rect& frame) ;
+    virtual void setNativeFont(const char* pFontName, int fontSize) ;
+    virtual void setNativeFontColor(const Color3B& color) ;
+    virtual void setNativePlaceholderFont(const char* pFontName, int fontSize) ;
+    virtual void setNativePlaceholderFontColor(const Color3B& color) ;
+    virtual void setNativeInputMode(EditBoxInputMode inputMode) ;
+    virtual void setNativeInputFlag(EditBoxInputFlag inputFlag) ;
+    virtual void setNativeReturnType(KeyboardReturnType returnType);
+    virtual void setNativeText(const char* pText) ;
+    virtual void setNativePlaceHolder(const char* pText) ;
+    virtual void setNativeVisible(bool visible) ;
+    virtual void updateNativeFrame(const Rect& rect) ;
+    virtual void setNativeContentSize(const Size& size)  {};
+    virtual const char* getNativeDefaultFontName() ;
+    virtual void nativeOpenKeyboard() ;
+    virtual void nativeCloseKeyboard() ;
     virtual void setNativeMaxLength(int maxLength);
 
 private:
@@ -113,7 +113,7 @@ private:
     // int   m_nMaxLength;
     // CCSize m_EditSize;
 
-    virtual void doAnimationWhenKeyboardMove(float duration, float distance)override {}
+    virtual void doAnimationWhenKeyboardMove(float duration, float distance) {}
 
     int _editBoxIndex;
 };

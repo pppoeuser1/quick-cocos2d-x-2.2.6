@@ -57,44 +57,44 @@ public:
      */
     virtual ~EditBoxImplCommon();
     
-    virtual bool initWithSize(const CCSize& size) override;
+    virtual bool initWithSize(const CCSize& size) ;
     
-    virtual void setFont(const char* pFontName, int fontSize) override;
-    virtual void setFontColor(const ccColor3B& color) override;
-    virtual void setPlaceholderFont(const char* pFontName, int fontSize) override;
-    virtual void setPlaceholderFontColor(const ccColor3B& color) override;
-    virtual void setInputMode(EditBoxInputMode inputMode) override;
-    virtual void setInputFlag(EditBoxInputFlag inputFlag) override;
-    virtual void setReturnType(KeyboardReturnType returnType) override;
-    virtual void setText(const char* pText) override;
-    virtual void setPlaceHolder(const char* pText) override;
-    virtual void setVisible(bool visible) override;
+    virtual void setFont(const char* pFontName, int fontSize) ;
+    virtual void setFontColor(const ccColor3B& color) ;
+    virtual void setPlaceholderFont(const char* pFontName, int fontSize) ;
+    virtual void setPlaceholderFontColor(const ccColor3B& color) ;
+    virtual void setInputMode(EditBoxInputMode inputMode) ;
+    virtual void setInputFlag(EditBoxInputFlag inputFlag) ;
+    virtual void setReturnType(KeyboardReturnType returnType) ;
+    virtual void setText(const char* pText) ;
+    virtual void setPlaceHolder(const char* pText) ;
+    virtual void setVisible(bool visible) ;
 
 
-    virtual void setMaxLength(int maxLength) override;
-    virtual int  getMaxLength() override;
+    virtual void setMaxLength(int maxLength) ;
+    virtual int  getMaxLength() ;
     
-    virtual const char* getText(void) override;
+    virtual const char* getText(void) ;
     virtual void refreshInactiveText();
     
-    virtual void setContentSize(const CCSize& size) override;
+    virtual void setContentSize(const CCSize& size) ;
     
-    virtual void setAnchorPoint(const Vec2& anchorPoint) override {}
-    virtual void setPosition(const Vec2& pos) override {}
+    virtual void setAnchorPoint(const Vec2& anchorPoint)  {}
+    virtual void setPosition(const Vec2& pos)  {}
     
     /**
      * @js NA
      * @lua NA
      */
-    //virtual void draw(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags) override;
-    virtual void visit() override;
+    //virtual void draw(Renderer *renderer, const Mat4 &parentTransform, uint32_t parentFlags) ;
+    virtual void visit() ;
     /**
      * @js NA
      * @lua NA
      */
-    virtual void onEnter(void) override;
-    virtual void openKeyboard() override;
-    virtual void closeKeyboard() override;
+    virtual void onEnter(void) ;
+    virtual void openKeyboard() ;
+    virtual void closeKeyboard() ;
 
     virtual void onEndEditing(const std::string& text);
     
@@ -102,7 +102,7 @@ public:
     void editBoxEditingChanged(const std::string& text);
     void editBoxEditingDidEnd(const std::string& text);
     
-    virtual bool isEditing() override = 0;
+    virtual bool isEditing()  = 0;
     virtual void createNativeControl(const Rect& frame) = 0;
     virtual void setNativeFont(const char* pFontName, int fontSize) = 0;
     virtual void setNativeFontColor(const ccColor3B& color) = 0;
