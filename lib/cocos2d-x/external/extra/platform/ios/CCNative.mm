@@ -58,6 +58,13 @@ void CCNative::openURL(const char* url)
     [[UIApplication sharedApplication] openURL:nsurl];
 }
 
+bool CCNative::canOpenUrl(const char* url)
+{
+    if (!url) return false;
+    NSURL *nsurl = [NSURL URLWithString:[NSString stringWithCString:url encoding:NSUTF8StringEncoding]];
+    return [[UIApplication sharedApplication] canOpenURL:nsurl];
+}
+
 const string CCNative::getInputText(const char* title, const char* message, const char* defaultValue)
 {
     CCLOG("CCNative::getInputText() - not support this platform.");

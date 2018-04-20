@@ -52,6 +52,8 @@ public:
     /** @brief Open a web page in the browser; create an email; or call a phone number. */
     static void openURL(const char* url);
     
+    static bool canOpenUrl(const char* url);
+    
 	/** @brief Show alert view, and get user input */
     static const string getInputText(const char* title, const char* message, const char* defaultValue);
     

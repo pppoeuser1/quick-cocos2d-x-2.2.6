@@ -59,6 +59,7 @@ public:
 
     static string getOpenUDID(void);
     static void openURL(const char* url);
+    static bool canOpenUrl(const char* url);
     static string getInputText(const char* title, const char* message, const char* defaultValue);
 
     static const string getDeviceName(void);

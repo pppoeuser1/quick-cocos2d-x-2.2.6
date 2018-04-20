@@ -1,6 +1,6 @@
 /*
 ** Lua binding: cocos2dx_extra_luabinding
-** Generated automatically by tolua++-1.0.92 on Wed Oct 22 00:31:05 2014.
+** Generated automatically by tolua++-1.0.92 on Fri Apr 20 10:37:48 2018.
 */
 
 #include "cocos2dx_extra_luabinding.h"
@@ -561,6 +561,36 @@ static int tolua_cocos2dx_extra_luabinding_CCNative_openURL00(lua_State* tolua_S
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* method: canOpenUrl of class  CCNative */
+#ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNative_canOpenUrl00
+static int tolua_cocos2dx_extra_luabinding_CCNative_canOpenUrl00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertable(tolua_S,1,"CCNative",0,&tolua_err) ||
+     !tolua_isstring(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,3,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* url = ((const char*)  tolua_tostring(tolua_S,2,0));
+  {
+   bool tolua_ret = (bool)  CCNative::canOpenUrl(url);
+   tolua_pushboolean(tolua_S,(bool)tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'canOpenUrl'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* method: getInputText of class  CCNative */
 #ifndef TOLUA_DISABLE_tolua_cocos2dx_extra_luabinding_CCNative_getInputText00
 static int tolua_cocos2dx_extra_luabinding_CCNative_getInputText00(lua_State* tolua_S)
@@ -793,6 +823,7 @@ TOLUA_API int tolua_cocos2dx_extra_luabinding_open (lua_State* tolua_S)
    tolua_function(tolua_S,"cancelAlert",tolua_cocos2dx_extra_luabinding_CCNative_cancelAlert00);
    tolua_function(tolua_S,"getOpenUDID",tolua_cocos2dx_extra_luabinding_CCNative_getOpenUDID00);
    tolua_function(tolua_S,"openURL",tolua_cocos2dx_extra_luabinding_CCNative_openURL00);
+   tolua_function(tolua_S,"canOpenUrl",tolua_cocos2dx_extra_luabinding_CCNative_canOpenUrl00);
    tolua_function(tolua_S,"getInputText",tolua_cocos2dx_extra_luabinding_CCNative_getInputText00);
    tolua_function(tolua_S,"getDeviceName",tolua_cocos2dx_extra_luabinding_CCNative_getDeviceName00);
    tolua_function(tolua_S,"vibrate",tolua_cocos2dx_extra_luabinding_CCNative_vibrate00);
