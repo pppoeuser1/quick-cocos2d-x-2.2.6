@@ -113,6 +113,11 @@ void CCNative::openURL(const char* url)
     }
 }
 
+bool CCNative::canOpenUrl(const char* url)
+{
+    return false;
+}
+
 const string CCNative::getInputText(const char* title, const char* message, const char* defaultValue)
 {
     CCLOG("CCNative::getInputText() - not support this platform.");
