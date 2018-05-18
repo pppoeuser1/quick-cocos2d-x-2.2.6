@@ -383,7 +383,7 @@ void EditBoxImplCommon::editBoxEditingDidEnd(const std::string& text)
     if (pDelegate != nullptr)
     {
         pDelegate->editBoxEditingDidEnd(m_pEditBox);
-        pDelegate->editBoxReturn(m_pEditBox);
+//        pDelegate->editBoxReturn(m_pEditBox);
     }
     
     if (m_pEditBox != nullptr)
@@ -406,27 +406,27 @@ void EditBoxImplCommon::editBoxEditingDidEnd(const std::string& text)
         int handler = m_pEditBox->getScriptEditBoxHandler();
         //pEngine->executeEvent(handler, "returnSend",m_pEditBox);   
         pEngine->executeEvent(handler, "ended",m_pEditBox);
-        cocos2d::extension::KeyboardReturnType returnType = m_pEditBox->getReturnType();
-        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
-        {
-           pEngine->executeEvent(handler, "returnDone", m_pEditBox);
-        }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
-        {
-           pEngine->executeEvent(handler, "returnSend", m_pEditBox);
-        }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
-        {
-           pEngine->executeEvent(handler, "returnSearch", m_pEditBox);
-        }
-        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
-        {
-           pEngine->executeEvent(handler, "returnGo", m_pEditBox);
-        }
-        else
-        {
-           pEngine->executeEvent(handler, "return", m_pEditBox);
-        }        
+//        cocos2d::extension::KeyboardReturnType returnType = m_pEditBox->getReturnType();
+//        if (returnType == cocos2d::extension::kKeyboardReturnTypeDone)
+//        {
+//           pEngine->executeEvent(handler, "returnDone", m_pEditBox);
+//        }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSend)
+//        {
+//           pEngine->executeEvent(handler, "returnSend", m_pEditBox);
+//        }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeSearch)
+//        {
+//           pEngine->executeEvent(handler, "returnSearch", m_pEditBox);
+//        }
+//        else if (returnType == cocos2d::extension::kKeyboardReturnTypeGo)
+//        {
+//           pEngine->executeEvent(handler, "returnGo", m_pEditBox);
+//        }
+//        else
+//        {
+//           pEngine->executeEvent(handler, "return", m_pEditBox);
+//        }
         
 
     }
@@ -438,6 +438,32 @@ void EditBoxImplCommon::editBoxEditingDidEnd(const std::string& text)
     // }
 
 }
+
+
+void EditBoxImplCommon::editBoxEditingDidReturn(const std::string& text)
+{
+    
+    CCEditBoxDelegate *pDelegate = m_pEditBox->getDelegate();
+    if (pDelegate != nullptr)
+    {
+//        pDelegate->editBoxEditingDidEnd(m_pEditBox);
+        pDelegate->editBoxReturn(m_pEditBox);
+    }
+    
+    
+    //#if CC_ENABLE_SCRIPT_BINDING
+    if (NULL != m_pEditBox && 0 != m_pEditBox->getScriptEditBoxHandler())
+    {
+        // cocos2d::CommonScriptData data(m_pEditBox->getScriptEditBoxHandler(), "changed", m_pEditBox);
+        // cocos2d::ScriptEvent event(cocos2d::kCommonEvent, (void *)&data);
+        // CCScriptEngineManager::sharedManager()->getScriptEngine()->sendEvent(&event);
+        cocos2d::CCScriptEngineProtocol* pEngine = cocos2d::CCScriptEngineManager::sharedManager()->getScriptEngine();
+        int handler = m_pEditBox->getScriptEditBoxHandler();
+        pEngine->executeEvent(handler, "returnSend",m_pEditBox);
+    }
+    //#endif
+}
+
 
 void EditBoxImplCommon::editBoxEditingChanged(const std::string& text)
 {

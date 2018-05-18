@@ -24,6 +24,7 @@ THE SOFTWARE.
  ****************************************************************************/
 package org.cocos2dx.lib;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -37,7 +38,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -66,6 +66,12 @@ public class Cocos2dxEditBoxHelper {
     public static void __editBoxEditingDidEnd(int index, String text){
         editBoxEditingDidEnd(index, text);
     }
+    
+    private static native void editBoxEditingDidReturn(int index, String text);
+    public static void __editBoxEditingDidReturn(int index, String text){
+    	editBoxEditingDidReturn(index, text);
+    }
+
 
 
     public Cocos2dxEditBoxHelper(ResizeLayout layout) {
@@ -200,10 +206,19 @@ public class Cocos2dxEditBoxHelper {
                 editBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                        if (actionId == EditorInfo.IME_ACTION_DONE) {
-                            Cocos2dxEditBoxHelper.closeKeyboard(index);
-                            mCocos2dxActivity.getGLSurfaceView().requestFocus();
-                        }
+//                    	Log.e("actionId",actionId+"");
+//                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                            Cocos2dxEditBoxHelper.closeKeyboard(index);
+//                            mCocos2dxActivity.getGLSurfaceView().requestFocus();
+//                        }
+                    	
+                    	 mCocos2dxActivity.runOnGLThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Cocos2dxEditBoxHelper.__editBoxEditingDidReturn(index,editBox.getText().toString());
+                             }
+                         });
+                    	
                         return false;
                     }
                 });
@@ -228,7 +243,8 @@ public class Cocos2dxEditBoxHelper {
         });
     }
 
-    public static void setFont(final int index, final String fontName, final float fontSize){
+    @SuppressLint("NewApi")
+	public static void setFont(final int index, final String fontName, final float fontSize){
         mCocos2dxActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

@@ -101,6 +101,7 @@ public:
     void editBoxEditingDidBegin();
     void editBoxEditingChanged(const std::string& text);
     void editBoxEditingDidEnd(const std::string& text);
+    void editBoxEditingDidReturn(const std::string& text);
     
     virtual bool isEditing()  = 0;
     virtual void createNativeControl(const Rect& frame) = 0;
