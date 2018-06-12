@@ -411,7 +411,12 @@ int assetsManagerProgressFunc(void *ptr, double totalToDownload, double nowDownl
     msg->what = ASSETSMANAGER_MESSAGE_PROGRESS;
     
     ProgressMessage *progressData = new ProgressMessage();
-    progressData->percent = (int)(nowDownloaded/totalToDownload*100);
+    if (totalToDownload==0) {
+        progressData->percent = 0;
+    }else{
+        progressData->percent = (int)(nowDownloaded/totalToDownload*100);
+    }
+    
     progressData->manager = manager;
     msg->obj = progressData;
     
@@ -597,9 +602,15 @@ void AssetsManager::Helper::update(float dt)
             }
             if (((ProgressMessage*)msg->obj)->manager->_scriptHandler)
             {
-                char buff[10];
-                sprintf(buff, "%d", ((ProgressMessage*)msg->obj)->percent);
-                CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, buff);
+                ProgressMessage * mess =(ProgressMessage*)msg->obj;
+                static int _temppercent = -1;
+                //防止不停的调用
+                if (_temppercent!=mess->percent) {
+                    _temppercent = mess->percent;
+                    char buff[10];
+                    sprintf(buff, "%d", mess->percent);                    
+                    CCScriptEngineManager::sharedManager()->getScriptEngine()->executeEvent(((ProgressMessage*)msg->obj)->manager->_scriptHandler, buff);
+                }
             }
             
             delete (ProgressMessage*)msg->obj;

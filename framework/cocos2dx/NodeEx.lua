@@ -151,7 +151,7 @@ end
 Node.scheduleUpdate_ = Node.scheduleUpdate
 function Node:scheduleUpdate(handler)
     if handler then
-        PRINT_DEPRECATED("Node.scheduleUpdate(handler) is deprecated, please use Node.addNodeEventListener()")
+        -- PRINT_DEPRECATED("Node.scheduleUpdate(handler) is deprecated, please use Node.addNodeEventListener()")
         self:addNodeEventListener(c.NODE_ENTER_FRAME_EVENT, handler)
         self:scheduleUpdate_()
     else
