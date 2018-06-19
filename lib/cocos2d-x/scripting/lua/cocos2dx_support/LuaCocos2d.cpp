@@ -1,6 +1,6 @@
 /*
 ** Lua binding: Cocos2d
-** Generated automatically by tolua++-1.0.92 on Tue Sep 20 12:18:09 2016.
+** Generated automatically by tolua++-1.0.92 on Tue Jun 19 12:59:08 2018.
 */
 
 /****************************************************************************
@@ -19924,6 +19924,36 @@ static int tolua_Cocos2d_CCNode_setAnchorPoint00(lua_State* tolua_S)
  tolua_error(tolua_S,"#ferror in function 'setAnchorPoint'.",&tolua_err);
  return 0;
 #endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* method: setAnchorPoint of class  CCNode */
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_CCNode_setAnchorPoint01
+static int tolua_Cocos2d_CCNode_setAnchorPoint01(lua_State* tolua_S)
+{
+ tolua_Error tolua_err;
+ if (
+     !tolua_isusertype(tolua_S,1,"CCNode",0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,2,0,&tolua_err) ||
+     !tolua_isnumber(tolua_S,3,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,4,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+ {
+  CCNode* self = (CCNode*)  tolua_tousertype(tolua_S,1,0);
+  float x = ((float)  tolua_tonumber(tolua_S,2,0));
+  float y = ((float)  tolua_tonumber(tolua_S,3,0));
+#ifndef TOLUA_RELEASE
+  if (!self) tolua_error(tolua_S,"invalid 'self' in function 'setAnchorPoint'", NULL);
+#endif
+  {
+   self->setAnchorPoint(x,y);
+  }
+ }
+ return 0;
+tolua_lerror:
+ return tolua_Cocos2d_CCNode_setAnchorPoint00(tolua_S);
 }
 #endif //#ifndef TOLUA_DISABLE
 
@@ -59296,6 +59326,7 @@ TOLUA_API int tolua_Cocos2d_open (lua_State* tolua_S)
    tolua_function(tolua_S,"setSkewY",tolua_Cocos2d_CCNode_setSkewY00);
    tolua_function(tolua_S,"getSkewY",tolua_Cocos2d_CCNode_getSkewY00);
    tolua_function(tolua_S,"setAnchorPoint",tolua_Cocos2d_CCNode_setAnchorPoint00);
+   tolua_function(tolua_S,"setAnchorPoint",tolua_Cocos2d_CCNode_setAnchorPoint01);
    tolua_function(tolua_S,"getAnchorPoint",tolua_Cocos2d_CCNode_getAnchorPoint00);
    tolua_function(tolua_S,"getAnchorPointInPoints",tolua_Cocos2d_CCNode_getAnchorPointInPoints00);
    tolua_function(tolua_S,"setContentSize",tolua_Cocos2d_CCNode_setContentSize00);

@@ -291,6 +291,7 @@ class CCNode : public CCScriptEventDispatcher
      * @param anchorPoint   The anchor point of node.
      */
     void setAnchorPoint(CCPoint anchorPoint);
+    void setAnchorPoint(float x, float y);
     /**
      * Returns the anchor point in percent.
      *

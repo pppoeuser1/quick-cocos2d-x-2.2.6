@@ -413,6 +413,10 @@ void CCNode::setAnchorPoint(const CCPoint& point)
     }
 }
 
+void CCNode::setAnchorPoint(float x, float y){
+    setAnchorPoint(ccp(x, y));
+}
+
 /// contentSize getter
 const CCSize& CCNode::getContentSize() const
 {
